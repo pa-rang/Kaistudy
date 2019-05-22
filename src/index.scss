@@ -152,3 +152,26 @@ header {
 	background-size: 100% auto;
 	background-repeat: no-repeat;
 }
+
+.modal {
+	width: 508px;
+	//height: 480px;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 70px 60px;
+	//justify-content: space-between;
+	.modal-head {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 65px;
+	}
+
+	.modal-body {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 71px;
+	}
+
+
+}
