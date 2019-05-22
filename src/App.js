@@ -3,6 +3,7 @@ import React from "react"
 import { Switch, Route, NavLink, Link } from "react-router-dom"
 import Modal from 'react-modal';
 import Cleave from 'cleave.js/react';
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 import HomePage from "components/HomePage"
 
@@ -33,7 +34,7 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 class Header extends React.PureComponent {
-	state = { scrollY: 0, isSignInOpen: false, isSignUpOpen: true }
+	state = { scrollY: 0, isSignInOpen: false, isSignUpOpen: false }
 
 	componentDidMount() {
 		// handle event
@@ -138,6 +139,9 @@ class Header extends React.PureComponent {
 	}
 	render() {
 		const { scrollY } = this.state
+		const { url } = this.props.match.params
+
+
 
 		return (
 			<header className={`header ${scrollY > 0 ? "scrolled" : ""}`}>
@@ -228,8 +232,18 @@ class Header extends React.PureComponent {
 					<div className="main_menu" style={{
 						right: "210px"
 					}}>
-						<NavLink to="/" exact>Home</NavLink>
-						<NavLink to="/main">Main</NavLink>
+						{
+							url ?
+								<React.Fragment>
+									<NavLink to="/" exact>Home</NavLink>
+									<NavLink to="/#main">Main</NavLink>
+								</React.Fragment>
+								:
+								<React.Fragment>
+									<AnchorLink href='#root'>Home</AnchorLink>
+									<AnchorLink href='#main'>Main</AnchorLink>
+								</React.Fragment>
+						}
 						<NavLink to="/my-page">My Page</NavLink>
 					</div>
 
@@ -253,10 +267,10 @@ function App() {
 	return (
 		<AppWrapper>
 
-			<Header/>
+			<Route path="/:url?" component={Header} />
 
 			<Switch>
-				<Route path="/" component={HomePage} />
+				<Route path="/" exact component={HomePage} />
 			</Switch>
 		</AppWrapper>
 	)
