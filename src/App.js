@@ -6,6 +6,7 @@ import Cleave from 'cleave.js/react';
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 import HomePage from "components/HomePage"
+import ScrollToTop from "components/ScrollToTop"
 
 import logo from "static/logo/logo.svg"
 
@@ -268,6 +269,7 @@ function App() {
 		<AppWrapper>
 
 			<Route path="/:url?" component={Header} />
+			<Route path="/:route?" component={ScrollToTop} />
 
 			<Switch>
 				<Route path="/" exact component={HomePage} />
