@@ -36,6 +36,21 @@ code {
 	height: 1000px;
 }
 
+button {
+	&:hover {
+		cursor: pointer;
+	}
+	&:focus {
+		outline: none;
+	}
+}
+
+a, a:visited, a:hover, a:active {
+	text-decoration: none;
+	color: inherit;
+}
+
+
 .button {
 	width: auto;
 	min-width: 150px;
@@ -70,9 +85,6 @@ code {
 
 
 header {
-	//* {
-	//	border: 1px solid black;
-	//}
 	transition: 0.4s;
 	position: fixed;
 	top: 0;
@@ -82,7 +94,6 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	//background-color: #ffffff;
 
 	.container {
 		display: flex;
@@ -91,6 +102,7 @@ header {
 		max-width: 1440px;
 		border: 1px solid black;
 		padding: 0 40px;
+		align-items: center;
 	}
 	border-bottom: 1px solid black;
 
@@ -122,6 +134,7 @@ header {
 
 	&.scrolled {
 		height: 80px;
+		transform: scale(0.8);
 		//a {
 		//	font-size: 12px;
 		//}
@@ -135,7 +148,7 @@ header {
 }
 
 .page-wrapper {
-	min-height: calc(100vh - 130px);
+	min-height: 100vh;
 	margin-top: 130px;
 	display: flex;
 	justify-content: center;
@@ -155,22 +168,84 @@ header {
 
 .modal {
 	width: 508px;
-	//height: 480px;
 	min-height: 100%;
 	display: flex;
 	flex-direction: column;
 	padding: 70px 60px;
-	//justify-content: space-between;
+
+	.close {
+		position: absolute;
+		right: 36px;
+		top: 36px;
+		width: 9px;
+		height: 9px;
+		background-image: url("static/images/close.png");
+		background-size: contain;
+		background-repeat: no-repeat;
+		padding: 0;
+		border: none;
+	}
+
 	.modal-head {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		width: 100%;
-		text-align: center;
 		margin-bottom: 65px;
+		font-size: 30px;
+		font-weight: bold;
+		line-height: 1.2;
+		color: #363636;
+		.inline-logo {
+			height: 50px;
+			margin-left: 8px;
+		}
 	}
 
 	.modal-body {
 		display: flex;
 		flex-direction: column;
 		margin-bottom: 71px;
+
+		form {
+			display: flex;
+			flex-direction: column;
+			input {
+				font-size: 20px;
+				line-height: 1.2;
+				color: #363636;
+				padding: 0 16px;
+				border: none;
+				border-bottom: 0.8px solid #c3c3c3;
+				margin-bottom: 6px;
+				&:last-child {
+					margin-bottom: 0;
+				}
+				&::placeholder {
+					transition: 0.2s;
+					color: #c3c3c3;
+				}
+
+				&:focus {
+					outline: none;
+					&::placeholder {
+						opacity: 0;
+					}
+				}
+				height: 63px;
+			}
+			.input-group {
+				width: 100%;
+				display: flex;
+			}
+			.input-h {
+				width: 40%;
+				margin-right: 10%;
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
 	}
 
 

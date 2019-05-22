@@ -2183,6 +2183,11 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
+animate.css@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-3.7.0.tgz#5de25d1ee5fba11ba6a1e2c4fa568f512eb7d4da"
+  integrity sha512-u3iMXDJr0cxMdQocIciDiou9Au4L5f9uT+/jCtprw3s1j3HcfCuI+khF+90Ps2KdsEhM2soF7SXB4WUvI3HlXg==
+
 ansi-align@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"
@@ -3572,6 +3577,11 @@ clean-css@4.2.x:
   integrity sha512-4ZxI6dy4lrY6FHzfiy1aEOXgu4LIsW2MhwG0VBKdcoGoH/XLFgaHSdLTGr4O8Be6A8r3MOphEiI8Gc1n0ecf3g==
   dependencies:
     source-map "~0.6.0"
+
+cleave.js@^1.4.10:
+  version "1.4.10"
+  resolved "https://registry.yarnpkg.com/cleave.js/-/cleave.js-1.4.10.tgz#40505827f07c148be6822522504901fca278a445"
+  integrity sha512-7AWnh+6pgQbbRT+e7WnK/yc+U50zhtQZklvEcKDiFDpfcu3kb300BdV7FMYtGOIsAzD5TKy7KH38ZwgyWyFE2Q==
 
 cli-boxes@^1.0.0:
   version "1.0.0"
@@ -12173,6 +12183,16 @@ svgo@^1.0.0, svgo@^1.2.1:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+sweetalert2-react-content@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2-react-content/-/sweetalert2-react-content-1.1.0.tgz#38c9790631cab37e03055a617afda6d2f447e1d2"
+  integrity sha512-vgmDAGwE4nvFWMkfVO/varrZXLhn2/apOL3O+fi3S2a6NkHWBXP1FGU7HkcmrLvNS1oGC3JcaBP2+r98LRyLIw==
+
+sweetalert2@^8.11.1:
+  version "8.11.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-8.11.1.tgz#deb4a729618ae536db6210028fb5d133ccb5a17b"
+  integrity sha512-yjN01bRiIagiL47zhiR6IHh2F0KcMdw8azeJzeFaOpIR28LqHcVZnH7xLsxD32xmCwoDk/BuuAwCosmQHhy+Ag==
 
 symbol-observable@^1.0.4, symbol-observable@^1.2.0:
   version "1.2.0"

@@ -1,12 +1,18 @@
 import React from "react"
 
-import { Switch, Route, NavLink } from "react-router-dom"
+import { Switch, Route, NavLink, Link } from "react-router-dom"
 import Modal from 'react-modal';
+import Cleave from 'cleave.js/react';
 
 import HomePage from "components/HomePage"
 
-import AppWrapper from "./App.styled"
+import logo from "static/logo/logo.svg"
 
+import AppWrapper from "./App.styled"
+import "animate.css"
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const customStyles = {
 	content : {
@@ -27,7 +33,7 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 class Header extends React.PureComponent {
-	state = { scrollY: 0, isModalOpen: false }
+	state = { scrollY: 0, isSignInOpen: false, isSignUpOpen: true }
 
 	componentDidMount() {
 		// handle event
@@ -47,54 +53,178 @@ class Header extends React.PureComponent {
 		})
 	}
 
-	openModal = () => {
-		this.setState({modalIsOpen: true});
+	openSignIn = () => {
+		this.setState({isSignInOpen: true});
+	}
+
+	openSignUp = () => {
+		this.setState({isSignUpOpen: true});
 	}
 
 	afterOpenModal = () => {
 		// references are now sync'd and can be accessed.
 	}
 
-	closeModal = () => {
-		this.setState({modalIsOpen: false});
+	closeSignIn = () => {
+		this.setState({isSignInOpen: false});
 	}
 
+	closeSignUp = () => {
+		this.setState({isSignUpOpen: false});
+	}
+
+	signin = e => {
+		e.preventDefault()
+		alert("Sign In")
+	}
+	signup = e => {
+		e.preventDefault()
+		alert("Sign Up")
+	}
+
+	onPhoneChange(event) {
+		// formatted pretty value
+		console.log(event.target.value);
+
+		// raw value
+		console.log(event.target.rawValue);
+	}
+
+	onOpenClick = () => {
+		const MySwal = withReactContent(Swal)
+		MySwal.fire({
+			title: null,
+			footer: null,
+			width: "626px",
+			height: "auto",
+			//minHeight: "480px",
+			borderRadius: "16px",
+			padding: 0,
+			showConfirmButton: false,
+			//animation: false,
+			//customClass: {
+			//	popup: 'animated bounceIn'
+			//},
+			html:
+				<div className="modal">
+					<button className="close" onClick={MySwal.clickCancel}/>
+					<div className="modal-head">
+						Welcome to <img className="inline-logo" src={logo} />
+					</div>
+
+					<div className="modal-body">
+						<form id="signin" className="form" onSubmit={this.signin}>
+							<input placeholder="Email" type="email" />
+							<input placeholder="Password" type="password" />
+
+						</form>
+					</div>
+
+					<div className="modal-footer">
+						<button type="submit" form="signin" className="button button-purple button-large" style={{ width: "100%" }}>
+							Sign In
+						</button>
+					</div>
+				</div>,
+			onOpen: () => {
+				// `MySwal` is a subclass of `Swal`
+				//   with all the same instance & static methods
+				//MySwal.clickConfirm()
+			}
+		}).then(() => {
+			//return MySwal.fire(<p>Shorthand works too</p>)
+		})
+
+	}
 	render() {
 		const { scrollY } = this.state
 
 		return (
 			<header className={`header ${scrollY > 0 ? "scrolled" : ""}`}>
 				<Modal
-					isOpen={this.state.modalIsOpen}
-					onAfterOpen={this.afterOpenModal}
-					onRequestClose={this.closeModal}
+					isOpen={this.state.isSignInOpen}
+					onRequestClose={this.closeSignIn}
 					style={customStyles}
-					contentLabel="Example Modal"
+					contentLabel="SignIn Modal"
 				>
 					<div className="modal">
+						<button className="close" onClick={this.closeSignIn}></button>
 						<div className="modal-head">
-							Welcome to KAIStudy
+							Welcome to <img className="inline-logo" src={logo} />
 						</div>
 
 						<div className="modal-body">
-							<input placeholder="Email" type="email" />
-							<input placeholder="Password" type="password" />
+							<form id="signin" className="form" onSubmit={this.signin}>
+								<input placeholder="Email" type="email" />
+								<input placeholder="Password" type="password" />
+
+							</form>
 						</div>
 
 						<div className="modal-footer">
-							<button className="button button-purple button-large" style={{ width: "100%" }}>
+							<button type="submit" form="signin" className="button button-purple button-large" style={{ width: "100%" }}>
 								Sign In
 							</button>
 						</div>
 					</div>
 				</Modal>
 
+
+				<Modal
+					isOpen={this.state.isSignUpOpen}
+					onRequestClose={this.closeSignUp}
+					style={customStyles}
+					contentLabel="SignUp Modal"
+				>
+					<div className="modal">
+						<button className="close" onClick={this.closeSignUp}></button>
+						<div className="modal-head">
+							Create an Account
+						</div>
+
+						<div className="modal-body">
+							<form id="signup" className="form" onSubmit={this.signup}>
+								<div className="input-group">
+									<input type="text" className="input-h" placeholder="First name" />
+									<input type="text" className="input-h" placeholder="Last name" />
+								</div>
+
+								<input placeholder="Email" type="email" />
+								<input placeholder="Password" type="password" />
+								<input placeholder="Password Confirm" type="password" />
+
+								<Cleave placeholder="Student ID"
+												style={{ width: "30%"}}
+												options={{
+													numericOnly: true,
+													blocks: [8]
+												}}
+												/>
+								<Cleave placeholder="Phone number"
+												style={{ width: "30%"}}
+												options={{
+													numericOnly: true,
+													blocks: [3, 4, 4],
+													delimiter: '-',
+												}}
+												onChange={this.onPhoneChange} />
+							</form>
+						</div>
+
+						<div className="modal-footer">
+							<button type="submit" form="signup" className="button button-purple button-large" style={{ width: "100%" }}>
+								Sign In
+							</button>
+						</div>
+					</div>
+				</Modal>
+
+
+
 				<div className="container">
-					<span className="logo">
-						<a href="/">
-							<img src="KAIStudy Logo.png" width="100px"/>
-						</a>
-					</span>
+					<Link to="/" style={{ height: "auto" }}>
+						<img src={logo} width="100px"/>
+					</Link>
 					<div className="main_menu" style={{
 						right: "210px"
 					}}>
@@ -105,9 +235,14 @@ class Header extends React.PureComponent {
 
 					<div className="auth-buttons">
 						<button className="button button-trans button-medium" style={{ fontSize: "18px" }}
-										onClick={this.openModal}
+										onClick={this.openSignIn}
 						>Log in</button>
-						<button className="button button-orange button-medium" style={{ fontSize: "18px" }}>Sign up</button>
+						<button className="button button-trans button-medium" style={{ fontSize: "18px" }}
+										onClick={this.onOpenClick}
+						>Log in</button>
+						<button className="button button-orange button-medium" style={{ fontSize: "18px" }}
+										onClick={this.openSignUp}
+						>Sign up</button>
 					</div>
 				</div>
 			</header>

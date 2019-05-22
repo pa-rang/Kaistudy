@@ -37,8 +37,10 @@
     ]
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
     "axios": "^0.18.0",
     "bricks.js": "^1.8.0",
+    "cleave.js": "^1.4.10",
     "cross-env": "^5.2.0",
     "i18next": "^15.1.0",
     "i18next-browser-languagedetector": "^3.0.1",
@@ -63,7 +65,9 @@
     "redux-immutable": "^4.0.0",
     "redux-pender": "^2.0.12",
     "styled-components": "^4.2.0",
-    "styled-theming": "^2.2.0"
+    "styled-theming": "^2.2.0",
+    "sweetalert2": "^8.11.1",
+    "sweetalert2-react-content": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
