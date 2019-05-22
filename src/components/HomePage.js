@@ -10,7 +10,7 @@ class HomePage extends PureComponent {
 			const $anchor = document.getElementById('main');
 			const offsetTop = $anchor.getBoundingClientRect().top + window.pageYOffset;
 			window.scroll({
-				top: offsetTop,
+				top: offsetTop - 150,
 				behavior: 'smooth'
 			})
 
