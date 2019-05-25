@@ -4,24 +4,9 @@ import { Link } from "react-router-dom"
 
 import styled from "styled-components"
 
-import employment from "static/images/category_employment.svg"
-import etc from "static/images/category_etc.svg"
-import hobby from "static/images/category_hobby.svg"
-import language from "static/images/category_language.svg"
-import lectureStudy from "static/images/category_lecture_study.svg"
-import programming from "static/images/category_programming.svg"
+import Category from "components/Category"
 
 import { formatDate } from "../lib/utils"
-
-const images = {
-	employment,
-	etc,
-	hobby,
-	language,
-	lectureStudy,
-	programming
-}
-
 
 const StyledGroupCard = styled.div`
 	display: flex;
@@ -42,7 +27,7 @@ const StyledGroupCard = styled.div`
   	margin-right: 0;
   }
 	.title {
-		font-family: Proxima Spoqa;	
+		font-family: Proxima, Spoqa;	
 		font-weight: bold;
 		font-size: 22px;
 		margin-bottom : 32px;
@@ -53,12 +38,9 @@ const StyledGroupCard = styled.div`
 		.info {
 			width: 50%;
 			margin-top: 130px;
-			font-family: Spoqa Proxima;
+			font-family: Spoqa, Proxima;
 			font-weight: light;
 			font-size: 13px;
-		}
-		.category {
-			width: 128px;
 		}
 	}
 `
@@ -70,8 +52,6 @@ class GroupCard extends React.Component {
 	render() {
 		const { title, category, dueDate, limit, count, id } = this.props.group
 
-		const src = images[category]
-
 		return (
 			<StyledGroupCard>
 				<div className="title">{title}</div>
@@ -80,7 +60,7 @@ class GroupCard extends React.Component {
 						<p>{formatDate(dueDate)}</p>
 						<p>{count} / {limit} people</p>
 					</div>
-					<img src={src} alt="Category" className="category"/>
+					<Category category={category} width="50%" height="auto"/>
 				</div>
 				<Link to={`/group/${id}`}>
 					<button className="button button-purple button-large" style={{ width: "100%" }}>

@@ -4,6 +4,7 @@ import { categories } from "../lib/variables"
 
 import GroupCard from "./GroupCard"
 import AnchorLink from "react-anchor-link-smooth-scroll"
+import { Link } from "react-router-dom"
 
 class HomePage extends PureComponent {
 	componentDidMount() {
@@ -37,9 +38,11 @@ class HomePage extends PureComponent {
 								</button>
 							</AnchorLink>
 
-							<button className="button button-orange button-large">
-								Create Group
-							</button>
+							<Link to="/create-group">
+								<button className="button button-orange button-large">
+									Create Group
+								</button>
+							</Link>
 						</div>
 					</section>
 
@@ -48,7 +51,7 @@ class HomePage extends PureComponent {
 							<span style={{ fontWeight: "bold" }}>CATEGORIES</span>
 
 							<div className="cat-list">
-								{categories.map((c, i) =>
+								{["All", ...categories].map((c, i) =>
 									<React.Fragment>
 										<div className="cat">{c}</div>
 										{i === categories.length - 1 || <div className="bar"/>}
@@ -59,17 +62,10 @@ class HomePage extends PureComponent {
 
 						<div className="groups">
 							{
-								['employment',
-									'etc',
-									'hobby',
-									'language',
-									'lectureStudy',
-									'programming',
-									'hobby'
-								].map((x, i) =>
+								categories.map((x, i) =>
 									<GroupCard key={i} group={{
 										title: "Studying MySQL Basics",
-										category: x,
+										category: x.toLowerCase(),
 										dueDate: Date.now(),
 										limit: 6,
 										count: 2,

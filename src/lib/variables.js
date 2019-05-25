@@ -1,5 +1,4 @@
 export const categories = [
-	"All",
 	"Programming",
 	"Language",
 	"Lecture study",

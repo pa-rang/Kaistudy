@@ -7,6 +7,8 @@ import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 import HomePage from "components/HomePage"
 import ScrollToTop from "components/ScrollToTop"
+import CreateGroup from "components/CreateGroup"
+import Input from "components/Input"
 
 import logo from "static/logo/logo.svg"
 
@@ -116,8 +118,8 @@ class Header extends React.PureComponent {
 
 					<div className="modal-body">
 						<form id="signin" className="form" onSubmit={this.signin}>
-							<input placeholder="Email" type="email" />
-							<input placeholder="Password" type="password" />
+							<Input placeholder="Email" type="email" />
+							<Input placeholder="Password" type="password" />
 
 						</form>
 					</div>
@@ -160,8 +162,8 @@ class Header extends React.PureComponent {
 
 						<div className="modal-body">
 							<form id="signin" className="form" onSubmit={this.signin}>
-								<input placeholder="Email" type="email" />
-								<input placeholder="Password" type="password" />
+								<Input placeholder="Email" type="email" />
+								<Input placeholder="Password" type="password" />
 
 							</form>
 						</div>
@@ -273,6 +275,7 @@ function App() {
 
 			<Switch>
 				<Route path="/" exact component={HomePage} />
+				<Route path="/create-group" component={CreateGroup} />
 			</Switch>
 		</AppWrapper>
 	)

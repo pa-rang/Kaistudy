@@ -21,7 +21,7 @@
 body {
 	margin: 0;
 	padding: 0;
-	font-family: Proxima Spoqa -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+	font-family: Proxima, Spoqa, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
 		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -162,7 +162,7 @@ header {
 
 .page-wrapper {
 	min-height: 100vh;
-	margin-top: calc(130px * 0.8);
+	padding-top: calc(130px * 0.8);
 	display: flex;
 	justify-content: center;
 }
@@ -181,7 +181,7 @@ header {
 		.home-text {
 			margin-top: 250px;
 			width: 590px;
-			font-family: Proxima Spoqa;
+			font-family: Proxima, Spoqa;
 			font-size: 66px;
 			font-weight: bold;
 			line-height: 1.2;
@@ -189,7 +189,7 @@ header {
 
 		.description-text {
 			width: 630px;
-			font-family: Spoqa Proxima;
+			font-family: Spoqa, Proxima;
 			line-height: 1.2;
 		}
 	}
@@ -230,7 +230,7 @@ header {
 			display: grid;
 			grid-template-columns: 33.33% 33.33% 33.33%;
 			margin-right: -24px;
-			overflow: hidden;
+			overflow: show;
 			//flex-wrap: wrap;
 			//justify-content: space-between;
 		}
