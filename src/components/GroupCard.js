@@ -27,12 +27,20 @@ const StyledGroupCard = styled.div`
 	display: flex;
 	flex-direction: column;
   height: 335px;
-  margin: 0 78px 78px 0;
+  margin: 0 52px 52px 0;
   border-radius: 40px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   background-color: white;
   padding: 32px;
   
+  :nth-child(3n + 2) {
+  	margin-left: 26px;
+  	margin-right: 26px;
+  }
+  :nth-child(3n) {
+  	margin-left: 52px;
+  	margin-right: 0;
+  }
 	.title {
 		font-family: Proxima Spoqa;	
 		font-weight: bold;
