@@ -21,7 +21,7 @@ class HomePage extends PureComponent {
 	}
 	render() {
 		return (
-			<div className="page-wrapper" id="homepage">
+			<div className="page-wrapper animated fadeIn" id="homepage">
 				<div className="container">
 					<section className="home-section">
 						<div className="home-text">
@@ -70,7 +70,8 @@ class HomePage extends PureComponent {
 										limit: 6,
 										count: 2,
 										id: i,
-									}}/>
+									}} index={i}
+									/>
 								)
 							}
 						</div>

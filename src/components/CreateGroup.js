@@ -134,7 +134,7 @@ class CreateGroup extends React.PureComponent {
 		const { category, deadline } = this.state
 
 		return (
-			<StyledWrapper className="page-wrapper">
+			<StyledWrapper className="page-wrapper animated fadeIn">
 				<div className="container">
 					<div className="page-content">
 						<div className="title">

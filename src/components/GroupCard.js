@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 
+import ScrollMagic from "scrollmagic"
 import styled from "styled-components"
 
 import Category from "components/Category"
@@ -47,17 +48,41 @@ const StyledGroupCard = styled.div`
 			height: auto;
 		}
 	}
+	
+	opacity: 0;
+	transform: translateX(-40px);
+	transition: all 0.6s ease-out;
+	&.visible {
+		opacity: 1;
+		transform: none;
+	}
 `
 
 class GroupCard extends React.Component {
 	state = { modalOpen: false }
+	elem = null
+	controller = new ScrollMagic.Controller()
+
+	componentDidMount() {
+		const { index } = this.props
+		console.log({ index} )
+
+		new ScrollMagic.Scene({
+			triggerElement: this.elem, // y value not modified, so we can use element as trigger as well
+			offset: 200 - (200 - (index % 3) * 80),												 // start a little later
+			triggerHook: 0.9,
+		})
+			.setClassToggle(this.elem, "visible") // add class toggle
+			//.addIndicators({name: "digit " + (i+1) }) // add indicators (requires plugin)
+			.addTo(this.controller);
+	}
 
 
 	render() {
 		const { title, category, dueDate, limit, count, id } = this.props.group
 
 		return (
-			<StyledGroupCard>
+			<StyledGroupCard ref={elem => this.elem = elem }>
 				<div className="title">{title}</div>
 				<div className="body">
 					<div className="info">
