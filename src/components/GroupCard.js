@@ -49,13 +49,11 @@ const StyledGroupCard = styled.div`
 			font-family: Spoqa Proxima;
 			font-weight: light;
 			font-size: 13px;
-			
 		}
 		.category {
 			width: 128px;
 		}
 	}
-	
 `
 
 class GroupCard extends React.Component {
@@ -82,7 +80,6 @@ class GroupCard extends React.Component {
 						Detail
 					</button>
 				</Link>
-
 			</StyledGroupCard>
 		)
 	}
