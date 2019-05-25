@@ -3,6 +3,7 @@ import React, { PureComponent } from "react"
 import { categories } from "../lib/variables"
 
 import GroupCard from "./GroupCard"
+import AnchorLink from "react-anchor-link-smooth-scroll"
 
 class HomePage extends PureComponent {
 	componentDidMount() {
@@ -30,9 +31,11 @@ class HomePage extends PureComponent {
 							and help participants to easily find and join study groups they’re interested in.
 						</div>
 						<div className="buttons">
-							<button className="button button-purple button-large">
-								Join Group
-							</button>
+							<AnchorLink offset="150px" href='#main'>
+								<button className="button button-purple button-large">
+									Join Group
+								</button>
+							</AnchorLink>
 
 							<button className="button button-orange button-large">
 								Create Group
