@@ -22,61 +22,63 @@ class HomePage extends PureComponent {
 	render() {
 		return (
 			<div className="page-wrapper animated fadeIn" id="homepage">
-				<div className="container">
-					<section className="home-section">
-						<div className="home-text">
-							Create a group and study together
-						</div>
-						<div className="description-text">
-							KAI’Study will help organizers to easily create and promote study groups,<br/>
-							and help participants to easily find and join study groups they’re interested in.
-						</div>
-						<div className="home-buttons">
-							<AnchorLink offset="150px" href='#main'>
-								<button className="button button-purple button-large">
-									Join Group
-								</button>
-							</AnchorLink>
-
-							<Link to="/create-group">
-								<button className="button button-orange button-large">
-									Create Group
-								</button>
-							</Link>
-						</div>
-					</section>
-
-					<section id="main">
-						<div className="categories">
-							<span style={{ fontWeight: "bold" }}>CATEGORIES</span>
-
-							<div className="cat-list">
-								{["All", ...categories].map((c, i) =>
-									<React.Fragment>
-										<div className="cat">{c}</div>
-										{i === categories.length - 1 || <div className="bar"/>}
-									</React.Fragment>
-								)}
+				<div className="background-wrapper">
+					<div className="container">
+						<section className="home-section">
+							<div className="home-text">
+								Create a group and study together
 							</div>
-						</div>
+							<div className="description-text">
+								KAI’Study will help organizers to easily create and promote study groups,<br/>
+								and help participants to easily find and join study groups they’re interested in.
+							</div>
+							<div className="home-buttons">
+								<AnchorLink offset="150px" href='#main'>
+									<button className="button button-purple button-large">
+										Join Group
+									</button>
+								</AnchorLink>
 
-						<div className="groups">
-							{
-								categories.map((x, i) =>
-									<GroupCard key={i} group={{
-										title: "Studying MySQL Basics",
-										category: x.toLowerCase(),
-										dueDate: Date.now(),
-										limit: 6,
-										count: 2,
-										id: i,
-									}} index={i}
-									/>
-								)
-							}
-						</div>
+								<Link to="/create-group">
+									<button className="button button-orange button-large">
+										Create Group
+									</button>
+								</Link>
+							</div>
+						</section>
 
-					</section>
+						<section id="main">
+							<div className="categories">
+								<span style={{ fontWeight: "bold" }}>CATEGORIES</span>
+
+								<div className="cat-list">
+									{["All", ...categories].map((c, i) =>
+										<React.Fragment>
+											<div className="cat">{c}</div>
+											{i === categories.length - 1 || <div className="bar"/>}
+										</React.Fragment>
+									)}
+								</div>
+							</div>
+
+							<div className="groups">
+								{
+									categories.map((x, i) =>
+										<GroupCard key={i} group={{
+											title: "Studying MySQL Basics",
+											category: x.toLowerCase(),
+											dueDate: Date.now(),
+											limit: 6,
+											count: 2,
+											id: i,
+										}} index={i}
+										/>
+									)
+								}
+							</div>
+
+						</section>
+					</div>
 				</div>
 			</div>
 		)

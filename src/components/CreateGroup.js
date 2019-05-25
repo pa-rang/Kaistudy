@@ -10,30 +10,17 @@ import Category from "./Category"
 import { categories } from "../lib/variables"
 
 const StyledWrapper = styled.div`
-	background-color: rgb(249, 249, 249);
+	.background-wrapper {
+		background-color: rgb(249, 249, 249);
+	}
 	.container {
 		align-items: center;
 	}
 	
-	.page-content {
-		.title {
-			font-family: Proxima;
-			font-size: 30px;
-			margin-bottom: 15px;
-			margin-top: 75px;
-			
-		}
-		width: 1000px;
-		max-width: 100%;
+	.board-layout {
 		.inner-content {
-			padding: 80px 60px;
-			background-color: white;
-			min-height: 500px;
-			
 			.footer {
-				display: flex;
 				justify-content: center;
-				width: 100%;
 			}
 		}
 	}
@@ -135,79 +122,81 @@ class CreateGroup extends React.PureComponent {
 
 		return (
 			<StyledWrapper className="page-wrapper animated fadeIn">
-				<div className="container">
-					<div className="page-content">
-						<div className="title">
-							Create New Group
-						</div>
-						<form onSubmit={this.handleSubmit} className="inner-content">
-							<ColGroup>
-								<label><span style={{ color: "blue" }}>*</span> Title <span style={{ color: "#cccccc" }}>(withiin 30 words)</span></label>
-								<Input type="text" maxLength={30} name="title" placeholder={"Title"}/>
-							</ColGroup>
-
-							<ColGroup>
-								<label>Description</label>
-								<Input type="text" name="description" placeholder={"Description"}/>
-							</ColGroup>
-
-							<RowGroup width={"50%"}>
-								<label><span style={{ color: "blue" }}>*</span> People</label>
-								<Input type="number" name="people" placeholder={"People"}/>
-							</RowGroup>
-
-							<RowGroup width={"50%"} style={{ flexWrap: "wrap" }}>
-								<label><span style={{ color: "blue" }}>*</span> Deadline</label>
-								<Input
-									type="text" name="deadline" placeholder={"Deadline"}
-									onFocus={() => this.setState({ onDateFocus: true })}
-									value={deadline ? moment(deadline).format("YYYY-MM-DD") : null}
-								/>
-								<div className={`calendar-wrapper ${this.state.onDateFocus ? 'show' : "hide"}`}>
-									<Calendar
-										className={`calendar`}
-										onChange={this.onDateChange}
-										value={deadline}
-									/>
-								</div>
-							</RowGroup>
-
-							<RowGroup width={"50%"}>
-								<label><span style={{ color: "blue" }}>*</span> Workload</label>
-								<Input type="number" name="workload" placeholder={"Workload"}/>
-							</RowGroup>
-
-							<ColGroup>
-								<label><span style={{ color: "blue" }}>*</span> Category</label>
-
-
-								<StyledCats>
-									{categories.map(cat =>
-										<label key={cat}>
-											<input
-												type="radio" className="radio" value={cat.toLowerCase()} checked={category === cat.toLowerCase()}
-												name="category"
-												onChange={this.handleChange}
-											/>
-											{cat}
-											<Category category={cat.toLowerCase()} marginTop={"20px"}/>
-										</label>
-									)}
-								</StyledCats>
-							</ColGroup>
-
-							<ColGroup>
-								<label>Tag</label>
-								<Input type="text" name="tag" placeholder={"Tag"}/>
-							</ColGroup>
-
-							<div className="footer">
-								<button type="submit" className="button button-orange">
-									Create Group
-								</button>
+				<div className="background-wrapper">
+					<div className="container">
+						<div className="board-layout">
+							<div className="title">
+								Create New Group
 							</div>
-						</form>
+							<form onSubmit={this.handleSubmit} className="inner-content">
+								<ColGroup>
+									<label><span style={{ color: "blue" }}>*</span> Title <span style={{ color: "#cccccc" }}>(withiin 30 words)</span></label>
+									<Input type="text" maxLength={30} name="title" placeholder={"Title"}/>
+								</ColGroup>
 
+								<ColGroup>
+									<label>Description</label>
+									<Input type="text" name="description" placeholder={"Description"}/>
+								</ColGroup>
+
+								<RowGroup width={"50%"}>
+									<label><span style={{ color: "blue" }}>*</span> People</label>
+									<Input type="number" name="people" placeholder={"People"}/>
+								</RowGroup>
+
+								<RowGroup width={"50%"} style={{ flexWrap: "wrap" }}>
+									<label><span style={{ color: "blue" }}>*</span> Deadline</label>
+									<Input
+										type="text" name="deadline" placeholder={"Deadline"}
+										onFocus={() => this.setState({ onDateFocus: true })}
+										value={deadline ? moment(deadline).format("YYYY-MM-DD") : null}
+									/>
+									<div className={`calendar-wrapper ${this.state.onDateFocus ? 'show' : "hide"}`}>
+										<Calendar
+											className={`calendar`}
+											onChange={this.onDateChange}
+											value={deadline}
+										/>
+									</div>
+								</RowGroup>
+
+								<RowGroup width={"50%"}>
+									<label><span style={{ color: "blue" }}>*</span> Workload</label>
+									<Input type="number" name="workload" placeholder={"Workload"}/>
+								</RowGroup>
+
+								<ColGroup>
+									<label><span style={{ color: "blue" }}>*</span> Category</label>
+
+
+									<StyledCats>
+										{categories.map(cat =>
+											<label key={cat}>
+												<input
+													type="radio" className="radio" value={cat.toLowerCase()} checked={category === cat.toLowerCase()}
+													name="category"
+													onChange={this.handleChange}
+												/>
+												{cat}
+												<Category category={cat.toLowerCase()} marginTop={"20px"}/>
+											</label>
+										)}
+									</StyledCats>
+								</ColGroup>
+
+								<ColGroup>
+									<label>Tag</label>
+									<Input type="text" name="tag" placeholder={"Tag"}/>
+								</ColGroup>
+
+								<div className="footer">
+									<button type="submit" className="button button-orange">
+										Create Group
+									</button>
+								</div>
+							</form>
+
+						</div>
 					</div>
 				</div>
 			</StyledWrapper>

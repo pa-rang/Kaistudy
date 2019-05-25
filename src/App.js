@@ -17,6 +17,7 @@ import "animate.css"
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import GroupDetail from "./components/GroupDetail"
 
 const customStyles = {
 	content : {
@@ -49,6 +50,11 @@ class Header extends React.PureComponent {
 		})
 
 		window.addEventListener("optimizedScroll", a => {
+			if (window.scrollY === 0) {
+				document.getElementsByClassName("page-wrapper")[0].classList.remove("scrolled")
+			} else {
+				document.getElementsByClassName("page-wrapper")[0].classList.add("scrolled")
+			}
 			this.setState({
 				scrollY: window.scrollY,
 				clicked: false
@@ -196,35 +202,37 @@ class Header extends React.PureComponent {
 
 		return (
 			<header className={`header ${scrollY > 0 ? "scrolled" : ""}`}>
-				<div className="container">
-					<Link to="/" style={{ height: "auto" }}>
-						<img src={logo} width="100px"/>
-					</Link>
-					<div className="main_menu" style={{
-						right: "210px"
-					}}>
-						{
-							url ?
-								<React.Fragment>
-									<NavLink to="/" exact>Home</NavLink>
-									<NavLink to="/#main">Main</NavLink>
-								</React.Fragment>
-								:
-								<React.Fragment>
-									<AnchorLink href='#root'>Home</AnchorLink>
-									<AnchorLink offset="40px" href='#main'>Main</AnchorLink>
-								</React.Fragment>
-						}
-						<NavLink to="/my-page">My Page</NavLink>
-					</div>
+				<div className="background-wrapper">
+					<div className="container">
+						<Link to="/" style={{ height: "auto" }}>
+							<img src={logo} width="100px"/>
+						</Link>
+						<div className="main_menu" style={{
+							right: "210px"
+						}}>
+							{
+								url ?
+									<React.Fragment>
+										<NavLink to="/" exact>Home</NavLink>
+										<NavLink to="/#main">Main</NavLink>
+									</React.Fragment>
+									:
+									<React.Fragment>
+										<AnchorLink href='#root'>Home</AnchorLink>
+										<AnchorLink offset="40px" href='#main'>Main</AnchorLink>
+									</React.Fragment>
+							}
+							<NavLink to="/my-page">My Page</NavLink>
+						</div>
 
-					<div className="auth-buttons">
-						<button className="button button-trans button-medium" style={{ fontSize: "18px" }}
-										onClick={this.onSignInOpen}
-						>Log in</button>
-						<button className="button button-orange button-medium" style={{ fontSize: "18px" }}
-										onClick={this.onSignUpOpen}
-						>Sign up</button>
+						<div className="auth-buttons">
+							<button className="button button-trans button-medium" style={{ fontSize: "18px" }}
+											onClick={this.onSignInOpen}
+							>Log in</button>
+							<button className="button button-orange button-medium" style={{ fontSize: "18px" }}
+											onClick={this.onSignUpOpen}
+							>Sign up</button>
+						</div>
 					</div>
 				</div>
 			</header>
@@ -241,6 +249,7 @@ function App() {
 			<Switch>
 				<Route path="/" exact component={HomePage} />
 				<Route path="/create-group" component={CreateGroup} />
+				<Route path="/group/:id" component={GroupDetail} />
 			</Switch>
 		</AppWrapper>
 	)
