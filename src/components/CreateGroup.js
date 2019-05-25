@@ -1,5 +1,5 @@
 import React from "react"
-
+import Swal from 'sweetalert2'
 import styled, { css } from "styled-components"
 
 import Input from "components/Input"
@@ -95,8 +95,15 @@ class CreateGroup extends React.PureComponent {
 	state = { category: "etc" }
 
 	handleSubmit = e => {
+		const { history } = this.props
 		e.preventDefault()
-		alert("submit")
+		Swal.fire(
+			'Good job!',
+			'You clicked the button!',
+			'success'
+		).then(res => {
+			history.push('/#main')
+		})
 	}
 
 	handleChange = ({ target: { name, value }}) => this.setState({ [name]: value })
@@ -115,27 +122,27 @@ class CreateGroup extends React.PureComponent {
 						<form onSubmit={this.handleSubmit} className="inner-content">
 							<ColGroup>
 								<label>Title <span style={{ color: "#cccccc" }}>(withiin 30 words)</span></label>
-								<Input type="text" maxLength={30} name="title" placeholder={"Input Title"}/>
+								<Input type="text" maxLength={30} name="title" placeholder={"Title"}/>
 							</ColGroup>
 
 							<ColGroup>
 								<label>Description</label>
-								<Input type="text" name="description" placeholder={"Input Description"}/>
+								<Input type="text" name="description" placeholder={"Description"}/>
 							</ColGroup>
 
 							<RowGroup width={"25%"}>
 								<label>People</label>
-								<Input type="number" name="peopel" placeholder={"Input People"}/>
+								<Input type="number" name="people" placeholder={"People"}/>
 							</RowGroup>
 
 							<RowGroup width={"25%"}>
 								<label>Deadline</label>
-								<Input type="number" name="peopel" placeholder={"Input People"}/>
+								<Input type="number" name="deadline" placeholder={"Deadline"}/>
 							</RowGroup>
 
 							<RowGroup width={"25%"}>
 								<label>Workload</label>
-								<Input type="number" name="peopel" placeholder={"Input People"}/>
+								<Input type="number" name="workload" placeholder={"Workload"}/>
 							</RowGroup>
 
 							<ColGroup>
@@ -159,7 +166,7 @@ class CreateGroup extends React.PureComponent {
 
 							<ColGroup>
 								<label>Tag</label>
-								<Input type="text" name="tag" placeholder={"Input Tag"}/>
+								<Input type="text" name="tag" placeholder={"Tag"}/>
 							</ColGroup>
 
 							<div className="footer">
