@@ -31,7 +31,7 @@ class HomePage extends PureComponent {
 							KAI’Study will help organizers to easily create and promote study groups,<br/>
 							and help participants to easily find and join study groups they’re interested in.
 						</div>
-						<div className="buttons">
+						<div className="home-buttons">
 							<AnchorLink offset="150px" href='#main'>
 								<button className="button button-purple button-large">
 									Join Group

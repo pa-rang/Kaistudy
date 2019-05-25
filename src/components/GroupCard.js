@@ -6,6 +6,9 @@ import styled from "styled-components"
 
 import Category from "components/Category"
 
+import people from "static/images/people.svg"
+import date from "static/images/date.svg"
+
 import { formatDate } from "../lib/utils"
 
 const StyledGroupCard = styled.div`
@@ -40,7 +43,8 @@ const StyledGroupCard = styled.div`
 			margin-top: 130px;
 			font-family: Spoqa, Proxima;
 			font-weight: light;
-			font-size: 13px;
+			font-size: 15px;
+			height: auto;
 		}
 	}
 `
@@ -57,8 +61,8 @@ class GroupCard extends React.Component {
 				<div className="title">{title}</div>
 				<div className="body">
 					<div className="info">
-						<p>{formatDate(dueDate)}</p>
-						<p>{count} / {limit} people</p>
+						<p><img width="15" src={people} /> {formatDate(dueDate)}</p>
+						<p><img width="15" src={date} />{count} / {limit} people</p>
 					</div>
 					<Category category={category} width="50%" height="auto"/>
 				</div>
