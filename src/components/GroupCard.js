@@ -15,20 +15,32 @@ import { formatDate } from "../lib/utils"
 const StyledGroupCard = styled.div`
 	display: flex;
 	flex-direction: column;
-  height: 335px;
-  margin: 0 52px 52px 0;
+  min-height: 335px;
   border-radius: 40px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   background-color: white;
   padding: 32px;
+  margin-bottom: 52px;
   
-  :nth-child(3n + 2) {
-  	margin-left: 26px;
-  	margin-right: 26px;
+  @media(min-width: 960px) {
+    margin: 0 52px 52px 0;
+
+		:nth-child(3n + 2) {
+			margin-left: 26px;
+			margin-right: 26px;
+		}
+		:nth-child(3n) {
+			margin-left: 52px;
+			margin-right: 0;
+		}
   }
-  :nth-child(3n) {
-  	margin-left: 52px;
-  	margin-right: 0;
+  @media(max-width: 960px) {
+  	:nth-child(2n+1) {
+  		margin-right: 26px;
+  	}
+  	:nth-child(2n) {
+  		margin-left: 26px;
+  	}
   }
 	.title {
 		font-family: Proxima, Spoqa;	

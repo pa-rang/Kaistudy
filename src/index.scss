@@ -240,6 +240,10 @@ header {
 			width: 100%;
 			display: grid;
 			grid-template-columns: 33.33% 33.33% 33.33%;
+
+			@media(max-width: 960px) {
+				grid-template-columns: 50% 50%;
+			}
 			margin-right: -24px;
 			overflow: show;
 			//flex-wrap: wrap;
