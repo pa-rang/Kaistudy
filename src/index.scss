@@ -53,10 +53,10 @@ a, a:visited, a:hover, a:active {
 
 .button {
 	width: auto;
-	min-width: 150px;
+	min-width: 180px;
 	color: white;
 	border-radius: 28px;
-	font-size: 24px;
+	font-size: 20px;
 	padding: 6px;
 	font-weight: bold;
 
@@ -163,7 +163,6 @@ header {
 
 #homepage {
 	margin-top: 0;
-	//padding-top: 130px;
 	background-image: url("static/images/main_background.svg");
 	background-size: 100% auto;
 	background-repeat: no-repeat;
@@ -173,22 +172,33 @@ header {
 		height: 800px;
 
 		.home-text {
-			margin-top: 250px;
-			width: 590px;
-			font-family: Proxima Spoqa;
-			font-size: 66px;
+			margin-top: 280px;
+			width: 560px;
+			font-family: Proxima, Spoqa;
+			font-size: 60px;
 			font-weight: bold;
-			line-height: 1.2;
+			line-height: 1.1;
 		}
 
 		.description-text {
-			width: 630px;
-			font-family: Spoqa Proxima;
+			width: 680px;
+			font-family: Spoqa, Proxima;
+            font-size: 18px;
+            //font-weight: thin;
 			line-height: 1.2;
+            margin: 20px 0 70px 5px;
 		}
+        .home-buttons{
+          //margin: px;
+          button:first-child {
+            margin-right: 24px;
+          }
+        }
 	}
 
 	#main {
+        //margin: 0 150px;
+
 		.categories {
 			background-color: rgb(239, 239, 239);
 			display: flex;
