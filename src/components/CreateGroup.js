@@ -46,6 +46,9 @@ const StyledWrapper = styled.div`
 			height: 0;
 			//visibility: hidden;
 			opacity: 0;
+			.calendar {
+				display: none;
+			}
 		}
 	}
 `
@@ -97,10 +100,12 @@ const RowGroup = styled.div`
 const StyledCats = styled.div`
 	display: flex;
 	flex-wrap: wrap;
+	margin-top: 30px;
 	
 	label {
 		width: 17%;
 		margin-right: 13%;
+		margin-bottom: 30px;
 	}
 `
 
@@ -137,7 +142,7 @@ class CreateGroup extends React.PureComponent {
 						</div>
 						<form onSubmit={this.handleSubmit} className="inner-content">
 							<ColGroup>
-								<label>Title <span style={{ color: "#cccccc" }}>(withiin 30 words)</span></label>
+								<label><span style={{ color: "blue" }}>*</span> Title <span style={{ color: "#cccccc" }}>(withiin 30 words)</span></label>
 								<Input type="text" maxLength={30} name="title" placeholder={"Title"}/>
 							</ColGroup>
 
@@ -146,13 +151,13 @@ class CreateGroup extends React.PureComponent {
 								<Input type="text" name="description" placeholder={"Description"}/>
 							</ColGroup>
 
-							<RowGroup width={"40%"}>
-								<label>People</label>
+							<RowGroup width={"50%"}>
+								<label><span style={{ color: "blue" }}>*</span> People</label>
 								<Input type="number" name="people" placeholder={"People"}/>
 							</RowGroup>
 
-							<RowGroup width={"40%"} style={{ flexWrap: "wrap" }}>
-								<label>Deadline</label>
+							<RowGroup width={"50%"} style={{ flexWrap: "wrap" }}>
+								<label><span style={{ color: "blue" }}>*</span> Deadline</label>
 								<Input
 									type="text" name="deadline" placeholder={"Deadline"}
 									onFocus={() => this.setState({ onDateFocus: true })}
@@ -167,13 +172,13 @@ class CreateGroup extends React.PureComponent {
 								</div>
 							</RowGroup>
 
-							<RowGroup width={"40%"}>
-								<label>Workload</label>
+							<RowGroup width={"50%"}>
+								<label><span style={{ color: "blue" }}>*</span> Workload</label>
 								<Input type="number" name="workload" placeholder={"Workload"}/>
 							</RowGroup>
 
 							<ColGroup>
-								<label>Category</label>
+								<label><span style={{ color: "blue" }}>*</span> Category</label>
 
 
 								<StyledCats>
@@ -185,7 +190,7 @@ class CreateGroup extends React.PureComponent {
 												onChange={this.handleChange}
 											/>
 											{cat}
-											<Category category={cat.toLowerCase()} />
+											<Category category={cat.toLowerCase()} marginTop={"20px"}/>
 										</label>
 									)}
 								</StyledCats>

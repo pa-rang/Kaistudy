@@ -21,6 +21,7 @@ const images = {
 
 const Category = styled.div`
 	background-image: url(${props => images[props.category] || etc});
+	margin-top: ${props => props.marginTop};
 	width: ${props => props.width};
 	height: ${props => props.height};
 	background-size: contain;
@@ -33,7 +34,8 @@ Category.propTypes = {
 Category.defaultProps = {
 	width: "128px",
 	height: "128px",
-	category: "etc"
+	category: "etc",
+	marginTop: 0
 }
 
 export default Category
