@@ -212,7 +212,7 @@ class Header extends React.PureComponent {
 								:
 								<React.Fragment>
 									<AnchorLink href='#root'>Home</AnchorLink>
-									<AnchorLink offset="150px" href='#main'>Main</AnchorLink>
+									<AnchorLink offset="40px" href='#main'>Main</AnchorLink>
 								</React.Fragment>
 						}
 						<NavLink to="/my-page">My Page</NavLink>
