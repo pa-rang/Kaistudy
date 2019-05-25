@@ -26,7 +26,6 @@ const images = {
 const StyledGroupCard = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 335px;
   height: 335px;
   margin: 0 78px 78px 0;
   border-radius: 40px;

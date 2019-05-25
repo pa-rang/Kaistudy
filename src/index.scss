@@ -91,6 +91,8 @@ a, a:visited, a:hover, a:active {
 	max-width: 1440px;
 	border: 1px solid black;
 	padding: 0 40px;
+	transform: scale(0.8);
+	transform-origin: top;
 }
 
 header {
@@ -103,6 +105,7 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border-bottom: none !important;
 
 	.container {
 		flex-direction: row;
@@ -153,14 +156,14 @@ header {
 
 .page-wrapper {
 	min-height: 100vh;
-	margin-top: 130px;
+	margin-top: calc(130px * 0.8);
 	display: flex;
 	justify-content: center;
 }
 
 #homepage {
 	margin-top: 0;
-	padding-top: 130px;
+	//padding-top: 130px;
 	background-image: url("static/images/main_background.svg");
 	background-size: 100% auto;
 	background-repeat: no-repeat;
