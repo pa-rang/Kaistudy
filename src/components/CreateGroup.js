@@ -1,6 +1,8 @@
 import React from "react"
 import Swal from 'sweetalert2'
 import styled, { css } from "styled-components"
+import Calendar from 'react-calendar'
+import moment from "moment"
 
 import Input from "components/Input"
 
@@ -31,8 +33,19 @@ const StyledWrapper = styled.div`
 			.footer {
 				display: flex;
 				justify-content: center;
-				width: 100%:
+				width: 100%;
 			}
+		}
+	}
+	.calendar-wrapper {
+		width: 100%;
+		transition: 0.4s;
+		height: auto;
+	
+		&.hide {
+			height: 0;
+			//visibility: hidden;
+			opacity: 0;
 		}
 	}
 `
@@ -72,7 +85,7 @@ const RowGroup = styled.div`
 	margin-bottom: 40px;
 	
 	label {
-		width: 100%;
+		//width: 100%;
 		margin-bottom: 20px;
 	}
 	input { 
@@ -92,7 +105,7 @@ const StyledCats = styled.div`
 `
 
 class CreateGroup extends React.PureComponent {
-	state = { category: "etc" }
+	state = { category: "etc", date: null, onDateFocus: false }
 
 	handleSubmit = e => {
 		const { history } = this.props
@@ -108,9 +121,12 @@ class CreateGroup extends React.PureComponent {
 
 	handleChange = ({ target: { name, value }}) => this.setState({ [name]: value })
 
+	onDateChange = date => {
+		this.setState({ deadline: date, onDateFocus: false })
+	}
 
 	render() {
-		const { category } = this.state
+		const { category, deadline } = this.state
 
 		return (
 			<StyledWrapper className="page-wrapper">
@@ -130,17 +146,28 @@ class CreateGroup extends React.PureComponent {
 								<Input type="text" name="description" placeholder={"Description"}/>
 							</ColGroup>
 
-							<RowGroup width={"25%"}>
+							<RowGroup width={"40%"}>
 								<label>People</label>
 								<Input type="number" name="people" placeholder={"People"}/>
 							</RowGroup>
 
-							<RowGroup width={"25%"}>
+							<RowGroup width={"40%"} style={{ flexWrap: "wrap" }}>
 								<label>Deadline</label>
-								<Input type="number" name="deadline" placeholder={"Deadline"}/>
+								<Input
+									type="text" name="deadline" placeholder={"Deadline"}
+									onFocus={() => this.setState({ onDateFocus: true })}
+									value={deadline ? moment(deadline).format("YYYY-MM-DD") : null}
+								/>
+								<div className={`calendar-wrapper ${this.state.onDateFocus ? 'show' : "hide"}`}>
+									<Calendar
+										className={`calendar`}
+										onChange={this.onDateChange}
+										value={deadline}
+									/>
+								</div>
 							</RowGroup>
 
-							<RowGroup width={"25%"}>
+							<RowGroup width={"40%"}>
 								<label>Workload</label>
 								<Input type="number" name="workload" placeholder={"Workload"}/>
 							</RowGroup>
