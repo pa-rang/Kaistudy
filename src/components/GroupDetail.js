@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 
 import styled, { css } from "styled-components"
-import { getGroupDetail } from "../lib/api"
+import { getGroupDetail, postComment } from "../lib/api"
 import moment from "moment"
+import { formatDate } from "../lib/utils"
 
 const SLabel = styled.div`
 	display: flex;
@@ -80,8 +81,11 @@ const Styled = styled.div`
 			margin-left: 20px;
 			font-size: 18px;
 			font-family: Proxima, Spoqa;
-			font-weight: light;
+			font-weight: 300;
 			color: white;
+			&:hover {
+				curosr: pointer;
+			}
 		}
 		
 		&.visible {
@@ -139,15 +143,16 @@ const SComment = styled.div`
 `
 
 const Comment = (props) => {
-	const { author, createdAt, text, level} = props
+	const { first_name, last_name, comment_created_at, text, level, group_id, comment_id, fetchData } = props
 	const [show, setShow] = useState(false)
+	const [comment, setComment] = useState("")
 
 	const topLevel = !level
 	return (
 		<SComment level={level || 0}>
 			<div className="head">
-				<div className="author">{author}</div>
-				<div className="time">{createdAt}</div>
+				<div className="author">{last_name} {first_name}</div>
+				<div className="time">{formatDate(comment_created_at)}</div>
 				{topLevel && <div className="reply" onClick={() => setShow(prev => !prev)}>Reply</div>}
 			</div>
 			<div className="text">
@@ -156,8 +161,14 @@ const Comment = (props) => {
 			{
 				topLevel &&
 				<p className={`textarea ${show ? "visible" : ""}`}>
-					<textarea className="text-write" placeholder="Write here..."></textarea>
-					<input className="text-submit" type="submit" value="Submit"></input>
+					<textarea className="text-write" placeholder="Write here..." value={comment} onChange={e => setComment(e.target.value)}/>
+					<input className="text-submit" type="submit" value="Submit" onClick={() =>
+						postComment(group_id, comment_id)(comment)
+							.then(() => {
+								fetchData()
+								setComment("")
+							})
+					} />
 				</p>
 			}
 		</SComment>
@@ -167,9 +178,18 @@ const Comment = (props) => {
 class GroupDetail extends React.PureComponent {
 	state = {
 		group_detail: {},
-		owner_info: {}
+		owner_info: {},
+		comment_info: [],
+		comment: ""
 	}
+
+	handleChange = ({ target: { name, value }}) => this.setState({ [name]: value })
+
 	componentDidMount() {
+		this.fetchData()
+	}
+
+	fetchData = () => {
 		const { id } = this.props.match.params
 
 		getGroupDetail(id)
@@ -180,21 +200,23 @@ class GroupDetail extends React.PureComponent {
 	render() {
 		const { id } = this.props.match.params
 		const { group, manager, comments } = this.props
-		const { group_detail, owner_info } = this.state
-		const { title, desc, category_name, member_cnt, capacity, deadline, workload, tag } = group_detail
+		const { group_detail, owner_info, comment_info } = this.state
+		const { group_id, title, desc, category_name, member_cnt, capacity, deadline, workload, tag } = group_detail
 		const { first_name, last_name, gender, phone_number, email } = owner_info
 
 		let coms = []
-		comments.forEach(comment => {
-			coms.push(
-				<Comment {...comment} level={0} />
-			)
-			comment.replies.forEach(comment => {
+		comment_info.filter(c => !c.parent_comment_id)
+			.forEach(comment => {
 				coms.push(
-					<Comment {...comment} level={1} />
+					<Comment {...comment} level={0} group_id={group_id} fetchData={this.fetchData}/>
 				)
+				comment_info.filter(c => c.parent_comment_id === comment.comment_id)
+					.forEach(comment => {
+						coms.push(
+							<Comment {...comment} level={1} group_id={group_id} fetchData={this.fetchData} />
+						)
+					})
 			})
-		})
 
 		return (
 			<Styled className="page-wrapper animated fadeIn">
@@ -233,8 +255,14 @@ class GroupDetail extends React.PureComponent {
 							<div className="inner-content">
 								{coms}
 								<p className="textarea visible">
-									<textarea className="text-write" placeholder="Write here..."></textarea>
-									<input className="text-submit" type="submit" value="Submit"></input>
+									<textarea name="comment" className="text-write" placeholder="Write here..." value={this.state.comment} onChange={this.handleChange} />
+									<input className="text-submit" type="submit" value="Submit" onClick={() =>
+										postComment(group_id)(this.state.comment)
+											.then(() => {
+												this.fetchData()
+												this.setState({ comment: "" })
+											})
+									}/>
 								</p>
 							</div>
 					</div>

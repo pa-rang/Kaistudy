@@ -1,6 +1,9 @@
+import moment from "moment"
+
 const isValidDate = date => date instanceof Date && !isNaN(date)
 
 export function formatDate(timestamp) {
+	return moment(timestamp).format("YYYY-MM-DD HH-mm-ss")
 	if (!timestamp) return
 
 	const date = new Date(timestamp)

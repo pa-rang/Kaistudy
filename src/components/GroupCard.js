@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
+import moment from "moment"
 
 import ScrollMagic from "scrollmagic"
 import styled from "styled-components"
@@ -107,7 +108,7 @@ class GroupCard extends React.Component {
 						</p>
 						<p>
 							<img className="icons" width="22" src={date} />
-							{formatDate(deadline)}
+							{moment(deadline).format("YYYY-MM-DD")}
 						</p>
 					</div>
 					<Category category={category_name} width="40%" height="auto"/>
