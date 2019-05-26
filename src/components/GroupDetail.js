@@ -49,6 +49,34 @@ const Styled = styled.div`
 	.container {
 		align-items: center;
 	}
+	.textarea{
+		flex: 1;
+		display: flex;
+		margin-top: 30px;
+		.text-write{
+			width: 85%;
+			height: 66px;
+			border-radius: 5px;
+			background-color: #f9f9f9;
+			font-size: 18px;
+			font-family: Proxima, Spoqa;
+			padding: 10px;
+			outline : none;
+			resize: none;
+		}
+		.text-submit{
+			width 10%;
+			height: auto;
+			border-radius: 10px;
+			background-color: #6c63ff;
+			outline: none;
+			margin-left: 20px;
+			font-size: 18px;
+			font-family: Proxima, Spoqa;
+			font-weight: light;
+			color: white;
+		}
+	}
 `
 
 const SComment = styled.div`
@@ -82,7 +110,7 @@ const SComment = styled.div`
 `
 
 const Comment = (props) => {
-	const { author, createdAt, text, level } = props
+	const { author, createdAt, text, level} = props
 	return (
 		<SComment level={level || 0}>
 			<div className="head">
@@ -151,8 +179,12 @@ class GroupDetail extends React.PureComponent {
 							<div className="title">Comments</div>
 							<div className="inner-content">
 								{coms}
+								<p className="textarea">
+									<textarea className="text-write" placeholder="Write here..."></textarea>
+									<input className="text-submit" type="submit" value="Submit"></input>
+								</p>
 							</div>
-						</div>
+					</div>
 					</div>
 				</div>
 			</Styled>

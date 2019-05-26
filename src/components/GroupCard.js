@@ -45,19 +45,23 @@ const StyledGroupCard = styled.div`
 	.title {
 		font-family: Proxima, Spoqa;	
 		font-weight: bold;
-		font-size: 22px;
+		font-size: 30px;
 		margin-bottom : 32px;
 	}
 	.body {
 		flex: 1;
 		display: flex;
+		margin-bottom: 10px;
 		.info {
-			width: 50%;
+			width: 60%;
 			margin-top: 130px;
 			font-family: Spoqa, Proxima;
-			font-weight: light;
-			font-size: 15px;
+			font-weight: regular;
+			font-size: 19px;
 			height: auto;
+			.icons{
+				margin-right: 10px;
+			}
 		}
 	}
 	
@@ -98,10 +102,16 @@ class GroupCard extends React.Component {
 				<div className="title">{title}</div>
 				<div className="body">
 					<div className="info">
-						<p><img width="15" src={people} /> {formatDate(dueDate)}</p>
-						<p><img width="15" src={date} />{count} / {limit} people</p>
+						<p>
+							<img className="icons" width="20" src={people} />
+							{formatDate(dueDate)}
+						</p>
+						<p>
+							<img className="icons" width="22" src={date} />
+							{count} / {limit} people
+						</p>
 					</div>
-					<Category category={category} width="50%" height="auto"/>
+					<Category category={category} width="40%" height="auto"/>
 				</div>
 				<Link to={`/group/${id}`}>
 					<button className="button button-purple button-large" style={{ width: "100%" }}>
