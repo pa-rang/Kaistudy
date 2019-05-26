@@ -13,12 +13,14 @@ const SIGNUP = "app/SIGNUP"
 const LOGOUT = "app/LOGOUT"
 
 const SET_AUTH = "app/SET_AUTH"
+const REFRES_AUTH = "app/REFRESH_AUTH"
 
 //action creators
 export const signIn = createAction(SIGNIN, API.signIn)
 export const signUp = createAction(SIGNUP, API.signUp)
 export const logout = createAction(LOGOUT, API.logout)
 export const setAuth = createAction(SET_AUTH)
+export const refreshAuth = createAction(REFRES_AUTH, API.getAuth)
 
 // initial state
 const initialState = Map({
@@ -53,7 +55,7 @@ export default handleActions({
 		onSuccess: (state, action) => {
 			storage.removeItem("auth")
 			return state
-				.set("auth", initialState.auth)
+				.set("auth", initialState.get('auth'))
 				.set('isAuthenticated', false)
 		}
 	}),
@@ -65,5 +67,17 @@ export default handleActions({
 		} else {
 			return state
 		}
-	}
+	},
+	...pender({
+		type: REFRES_AUTH,
+		onSuccess: (state, action) => {
+			const { data } = action.payload
+			if (!data) {
+				return state
+					.set("auth", initialState.get('auth'))
+					.set('isAuthenticated', false)
+			}
+			return state
+		}
+	})
 }, initialState)

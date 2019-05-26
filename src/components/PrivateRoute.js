@@ -1,5 +1,7 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
+import withReactContent from "sweetalert2-react-content"
+import Swal from "sweetalert2"
 
 import { connect } from "react-redux"
 
@@ -16,8 +18,14 @@ const PrivateRoute = (props) => {
 
 	if (isAuthenticated)
 		return <Route {...props}/>
-	else
+	else {
+		Swal.fire(
+			'Authentication Required',
+			'Please Login First to See Contents',
+			'warning'
+		)
 		return <Redirect to={"/"} />
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute)

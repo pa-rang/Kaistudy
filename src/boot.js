@@ -1,4 +1,4 @@
-import { setAuth } from "./store/reducers/app"
+import { setAuth, refreshAuth } from "./store/reducers/app"
 import { bindActionCreators } from "redux"
 
 export default (store) => {
@@ -26,5 +26,7 @@ export default (store) => {
 
 
 	const setAuthBinded = bindActionCreators(setAuth, store.dispatch)
+	const refreshAuthBinded = bindActionCreators(refreshAuth, store.dispatch)
 	setAuthBinded()
+	refreshAuthBinded()
 }

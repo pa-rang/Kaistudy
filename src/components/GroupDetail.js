@@ -1,7 +1,14 @@
 import React, { useState } from "react"
 
 import styled, { css } from "styled-components"
-import { getGroupDetail, participate, postComment } from "../lib/api"
+import {
+	acceptParticipant,
+	getGroupDetail,
+	participate,
+	participateList,
+	postComment,
+	rejectParticipant,
+} from "../lib/api"
 import moment from "moment"
 import { formatDate } from "../lib/utils"
 import ScrollMagic from "scrollmagic"
@@ -31,18 +38,20 @@ const SLabel = styled.div`
 		font-size: 20px;
 		font-weight: bold;
 		color: #363636;
+		flex: 1;
 	}	
 `
 
 SLabel.defaultProps = {
-	width: "70%",
+	//width: "70%",
 	flexDirection: "row",
 }
 
-const WLabel = ({ title, value, ...others }) => (
+const WLabel = ({ title, value, button, ...others }) => (
 	<SLabel {...others} >
 		<div className="tt" style={others.ttStyle}>{title}</div>
 		<div className="vl" style={others.vlStyle}>{value}</div>
+		{button&& <div className="bt">{button}</div>}
 	</SLabel>
 )
 
@@ -200,11 +209,14 @@ class GroupDetail extends React.PureComponent {
 		group_detail: {},
 		owner_info: {},
 		comment_info: [],
-		comment: ""
+		comment: "",
+		members: []
 	}
 	ref1 = null
 	ref2 = null
 	ref3 = null
+	ref4 = null
+	ref5 = null
 	controller = new ScrollMagic.Controller()
 
 	handleChange = ({ target: { name, value }}) => this.setState({ [name]: value })
@@ -239,6 +251,22 @@ class GroupDetail extends React.PureComponent {
 		})
 			.setClassToggle(this.ref3, "visible") // add class toggle
 			.addTo(this.controller);
+
+		new ScrollMagic.Scene({
+			triggerElement: this.ref4, // y value not modified, so we can use element as trigger as well
+			offset: 30,												 // start a little later
+			triggerHook: 0.9,
+		})
+			.setClassToggle(this.ref4, "visible") // add class toggle
+			.addTo(this.controller);
+
+		new ScrollMagic.Scene({
+			triggerElement: this.ref5, // y value not modified, so we can use element as trigger as well
+			offset: 30,												 // start a little later
+			triggerHook: 0.9,
+		})
+			.setClassToggle(this.ref5, "visible") // add class toggle
+			.addTo(this.controller);
 	}
 
 	fetchData = () => {
@@ -248,13 +276,20 @@ class GroupDetail extends React.PureComponent {
 			.then(data => {
 				this.setState(data.data)
 			})
+		participateList(id)
+			.then(data => {
+				this.setState({ members: data.data })
+			})
 	}
 	render() {
 		const { id } = this.props.match.params
 		const { group, manager, comments } = this.props
-		const { group_detail, owner_info, comment_info, user_status } = this.state
+		const { group_detail, owner_info, comment_info, user_status, members } = this.state
 		const { group_id, title, desc, category_name, member_cnt, capacity, deadline, workload, tag } = group_detail
 		const { first_name, last_name, gender, phone_number, email } = owner_info
+
+		const inMembmers = members.filter(m => !m.is_pending)
+		const pendingMembers = members.filter(m => m.is_pending)
 
 		let coms = []
 		comment_info.filter(c => !c.parent_comment_id)
@@ -278,6 +313,10 @@ class GroupDetail extends React.PureComponent {
 			button = <button className="button button-orange button-large" disabled>Pending</button>
 		if (user_status === 2)
 			button = <button className="button button-purple button-large" disabled>Member</button>
+		if (user_status === 3)
+			button = <button className="button button-orange button-large" disabled>Owner</button>
+
+
 		return (
 			<Styled className="page-wrapper animated fadeIn">
 				<div className="background-wrapper">
@@ -311,6 +350,60 @@ class GroupDetail extends React.PureComponent {
 								<WLabel title="Phone Number" value={phone_number} />
 								<WLabel title="Email" value={email} />
 							</div>
+							{
+								inMembmers.length &&
+									<React.Fragment>
+										<div className="title visible" ref={ref => this.ref4 = ref}>Team Members</div>
+										{
+											inMembmers.map(member => {
+												const { first_name, last_name, gender, phone_number, email } = member
+												return (
+													<div className="inner-content" key={email}>
+														<WLabel title="Name" value={`${first_name} ${last_name}`} />
+														<WLabel title="Gender" value={gender} />
+														<WLabel title="Phone Number" value={phone_number} />
+														<WLabel title="Email" value={email} />
+													</div>
+												)
+											})
+										}
+									</React.Fragment>
+							}
+
+							{
+								pendingMembers.length !== 0 &&
+								<React.Fragment>
+									<div className="title visible" ref={ref => this.ref5 = ref}>Pending Members</div>
+									{
+										pendingMembers.map(member => {
+											const { first_name, last_name, gender, phone_number, email, student_id } = member
+											return (
+												<div className="inner-content" key={email}>
+													<WLabel title="Name" value={`${first_name} ${last_name}`} />
+													<WLabel title="Gender" value={gender} />
+													<WLabel title="Phone Number" value={phone_number} button={
+														<button className="button button-purple"
+																		onClick={
+																			() => acceptParticipant(group_id, student_id)
+																				.then(this.fetchData)
+																		}
+													>Approve</button>
+													}/>
+													<WLabel title="Email" value={email} button={
+														<button className="button button-orange"
+																		onClick={
+																			() => rejectParticipant(group_id, student_id)
+																				.then(this.fetchData)
+																		}>
+														Reject
+													</button>}/>
+												</div>
+											)
+										})
+									}
+								</React.Fragment>
+							}
+
 							<div className="title" ref={ref => this.ref3 = ref}>Comments</div>
 							<div className="inner-content">
 								{coms}

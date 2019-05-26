@@ -24,7 +24,7 @@ function App() {
 			<Switch>
 				<Route path="/" exact component={HomePage}/>
 				<PrivateRoute path="/create-group" component={CreateGroup}/>
-				<Route path="/group/:id" component={GroupDetail}/>
+				<PrivateRoute path="/group/:id" component={GroupDetail}/>
 				<PrivateRoute path="/my-page" component={MyPage}/>
 			</Switch>
 		</AppWrapper>
