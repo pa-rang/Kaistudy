@@ -5,8 +5,11 @@ import { categories } from "../lib/variables"
 import GroupCard from "./GroupCard"
 import AnchorLink from "react-anchor-link-smooth-scroll"
 import { Link } from "react-router-dom"
+import { listGroups } from "../lib/api"
 
 class HomePage extends PureComponent {
+	state = { groups: [] }
+
 	componentDidMount() {
 		if (this.props.location.hash === "#main") {
 			const $anchor = document.getElementById('main');
@@ -15,11 +18,17 @@ class HomePage extends PureComponent {
 				top: offsetTop - 40,
 				behavior: 'smooth'
 			})
-
-
 		}
+
+		listGroups().then(data => {
+
+			this.setState({ groups: data.data })
+		})
 	}
+
 	render() {
+		console.log(this.state.groups)
+		const { groups } = this.state
 		return (
 			<div className="page-wrapper animated fadeIn" id="homepage">
 				<div className="background-wrapper">
@@ -63,15 +72,8 @@ class HomePage extends PureComponent {
 
 							<div className="groups">
 								{
-									categories.map((x, i) =>
-										<GroupCard key={i} group={{
-											title: "Studying MySQL Basics",
-											category: x.toLowerCase(),
-											dueDate: Date.now(),
-											limit: 6,
-											count: 2,
-											id: i,
-										}} index={i}
+									groups.map((x, i) =>
+										<GroupCard key={x.group_id} group={x} index={i}
 										/>
 									)
 								}

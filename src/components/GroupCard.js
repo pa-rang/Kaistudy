@@ -81,7 +81,6 @@ class GroupCard extends React.Component {
 
 	componentDidMount() {
 		const { index } = this.props
-		console.log({ index} )
 
 		new ScrollMagic.Scene({
 			triggerElement: this.elem, // y value not modified, so we can use element as trigger as well
@@ -95,7 +94,7 @@ class GroupCard extends React.Component {
 
 
 	render() {
-		const { title, category, dueDate, limit, count, id } = this.props.group
+		const { title, category_name, deadline, capacity, count, group_id } = this.props.group
 
 		return (
 			<StyledGroupCard ref={elem => this.elem = elem }>
@@ -104,16 +103,16 @@ class GroupCard extends React.Component {
 					<div className="info">
 						<p>
 							<img className="icons" width="20" src={people} />
-							{formatDate(dueDate)}
+							{count} / {capacity} people
 						</p>
 						<p>
 							<img className="icons" width="22" src={date} />
-							{count} / {limit} people
+							{formatDate(deadline)}
 						</p>
 					</div>
-					<Category category={category} width="40%" height="auto"/>
+					<Category category={category_name} width="40%" height="auto"/>
 				</div>
-				<Link to={`/group/${id}`}>
+				<Link to={`/group/${group_id}`}>
 					<button className="button button-purple button-large" style={{ width: "100%" }}>
 						Detail
 					</button>
@@ -127,9 +126,9 @@ class GroupCard extends React.Component {
 GroupCard.propTypes = {
 	group: PropTypes.shape({
 		title: PropTypes.string.isRequired,
-		category: PropTypes.string.isRequired,
-		dueDate: PropTypes.number.isRequired,
-		limit: PropTypes.number.isRequired,
+		category_name: PropTypes.string.isRequired,
+		deatline: PropTypes.number.isRequired,
+		capacity: PropTypes.number.isRequired,
 		count: PropTypes.number.isRequired,
 	})
 }
@@ -137,11 +136,11 @@ GroupCard.propTypes = {
 GroupCard.defaultProps = {
 	group: {
 		title: "Studying MySQL Basics",
-		category: "employment",
-		dueDate: Date.now(),
-		limit: 6,
+		category_name: "employment",
+		deatline: Date.now(),
+		capacity: 6,
 		count: 2,
-		id: 1
+		group_id: 1
 	}
 }
 

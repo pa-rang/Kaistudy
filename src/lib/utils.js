@@ -3,9 +3,10 @@ const isValidDate = date => date instanceof Date && !isNaN(date)
 export function formatDate(timestamp) {
 	if (!timestamp) return
 
-	const date = new Date(1000 * timestamp)
+	const date = new Date(timestamp)
+
 	if (isValidDate(date)) {
-		return getDateTime(new Date(1000 * timestamp))
+		return getDateTime(new Date(timestamp))
 	} else {
 		return getDateTime(new Date(timestamp))
 	}

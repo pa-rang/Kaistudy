@@ -279,8 +279,6 @@ class Header extends React.Component {
 		const { isAuthenticated } = this.props
 		const { url } = this.props.match.params
 
-		console.log(this.props)
-
 		return (
 			<header className={`header ${scrollY > 0 ? "scrolled" : ""}`}>
 				<div className="background-wrapper">

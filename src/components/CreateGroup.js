@@ -8,6 +8,7 @@ import Input from "components/Input"
 
 import Category from "./Category"
 import { categories } from "../lib/variables"
+import { createGroup } from "../lib/api"
 
 const StyledWrapper = styled.div`
 	.background-wrapper {
@@ -98,29 +99,58 @@ const StyledCats = styled.div`
 
 class CreateGroup extends React.PureComponent {
 	state = {
-		category: "etc", date: null, onDateFocus: false
+		category: "etc",
+		onDateFocus: false,
+		title: "",
+		desc: "",
+		capacity: 0,
+		deatline: null,
+		tag: "",
+		workload: "",
 	}
 
 	handleSubmit = e => {
 		const { history } = this.props
 		e.preventDefault()
-		Swal.fire(
-			'Good job!',
-			'You clicked the button!',
-			'success'
-		).then(res => {
-			history.push('/#main')
-		})
+
+		const {
+			category, deadline, title, desc, capacity, tag, workload
+		} = this.state
+
+		if (!category || !deadline || !title || !capacity || !workload) {
+			Swal.fire(
+				'Feel All Required Fields',
+				'All fields are required. Sibala',
+				'error'
+			)
+			return
+		}
+
+		createGroup(this.state)
+			.then(res => {
+				console.log(res)
+				return Swal.fire(
+					'Successfully Created',
+					'앞으로 공부 열심히 하세요^^',
+					'success'
+				)
+			})
+			.then(res => {
+				history.push('/#main')
+			})
+
 	}
 
 	handleChange = ({ target: { name, value }}) => this.setState({ [name]: value })
 
-	onDateChange = date => {
-		this.setState({ deadline: date, onDateFocus: false })
+	onDateChange = deadline => {
+		this.setState({ deadline, onDateFocus: false })
 	}
 
 	render() {
-		const { category, deadline } = this.state
+		const {
+			category, deadline, title, desc, capacity, tag, workload
+		} = this.state
 
 		return (
 			<StyledWrapper className="page-wrapper animated fadeIn">
@@ -133,17 +163,17 @@ class CreateGroup extends React.PureComponent {
 							<form onSubmit={this.handleSubmit} className="inner-content">
 								<ColGroup>
 									<label><span style={{ color: "blue" }}>*</span> Title <span style={{ color: "#cccccc" }}>(withiin 30 words)</span></label>
-									<Input type="text" maxLength={30} name="title" placeholder={"Title"}/>
+									<Input type="text" maxLength={30} name="title" value={title} placeholder={"Title"} onChange={this.handleChange} />
 								</ColGroup>
 
 								<ColGroup>
 									<label>Description</label>
-									<Input type="text" name="description" placeholder={"Description"}/>
+									<Input type="text" name="desc" value={desc}  onChange={this.handleChange} placeholder={"Description"}/>
 								</ColGroup>
 
 								<RowGroup width={"50%"}>
 									<label><span style={{ color: "blue" }}>*</span> People</label>
-									<Input type="number" name="people" placeholder={"People"}/>
+									<Input type="number" name="capacity" placeholder={"Capacity"}  value={capacity} onChange={this.handleChange}/>
 								</RowGroup>
 
 								<RowGroup width={"50%"} style={{ flexWrap: "wrap" }}>
@@ -164,7 +194,11 @@ class CreateGroup extends React.PureComponent {
 
 								<RowGroup width={"50%"}>
 									<label><span style={{ color: "blue" }}>*</span> Workload</label>
-									<Input type="number" name="workload" placeholder={"Workload"}/>
+									<Input
+										type="number" name="workload" placeholder={"Workload"}
+										value={workload}
+										onChange={this.handleChange}
+									/>
 								</RowGroup>
 
 								<ColGroup>
@@ -188,7 +222,7 @@ class CreateGroup extends React.PureComponent {
 
 								<ColGroup>
 									<label>Tag</label>
-									<Input type="text" name="tag" placeholder={"Tag"}/>
+									<Input type="text" name="tag" placeholder={"Tag"} value={tag} onChange={this.handleChange}/>
 								</ColGroup>
 
 								<div className="footer">
