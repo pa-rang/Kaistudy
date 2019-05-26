@@ -58,7 +58,6 @@ class HomePage extends PureComponent {
 						<section id="main">
 							<div className="categories">
 								<span style={{ fontWeight: "bold" }}>CATEGORIES</span>
-
 								<div className="cat-list">
 									{["All", ...categories].map((c, i) =>
 										<React.Fragment>

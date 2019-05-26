@@ -77,7 +77,8 @@ const Styled = styled.div`
 			height: 0;
 			border-radius: 10px;
 			background-color: #6c63ff;
-			outline: none;
+			//outline: none;
+			border: none;
 			margin-left: 20px;
 			font-size: 18px;
 			font-family: Proxima, Spoqa;
