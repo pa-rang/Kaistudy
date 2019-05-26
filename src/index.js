@@ -12,8 +12,10 @@ import App from "./App"
 
 import boot from "./boot"
 
+
 import * as serviceWorker from "./serviceWorker"
 
+boot(store)
 ReactDOM.render(
 	<Provider store={store}>
 		<ThemeProvider theme={{ mode: "light" }}>

@@ -97,7 +97,9 @@ const StyledCats = styled.div`
 `
 
 class CreateGroup extends React.PureComponent {
-	state = { category: "etc", date: null, onDateFocus: false }
+	state = {
+		category: "etc", date: null, onDateFocus: false
+	}
 
 	handleSubmit = e => {
 		const { history } = this.props
