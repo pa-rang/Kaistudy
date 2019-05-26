@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 
 import styled, { css } from "styled-components"
+import { getGroupDetail } from "../lib/api"
+import moment from "moment"
 
 const SLabel = styled.div`
 	display: flex;
@@ -50,12 +52,17 @@ const Styled = styled.div`
 		align-items: center;
 	}
 	.textarea{
+		transition: 0.4s;
+		opacity: 0;
+		height: 0;
+		overflow: hidden;
+		visibility: hidden;
 		flex: 1;
 		display: flex;
-		margin-top: 30px;
+		margin: 0;
 		.text-write{
 			width: 85%;
-			height: 66px;
+			height: 0;
 			border-radius: 5px;
 			background-color: #f9f9f9;
 			font-size: 18px;
@@ -65,8 +72,8 @@ const Styled = styled.div`
 			resize: none;
 		}
 		.text-submit{
-			width 10%;
-			height: auto;
+			width: 10%;
+			height: 0;
 			border-radius: 10px;
 			background-color: #6c63ff;
 			outline: none;
@@ -76,11 +83,25 @@ const Styled = styled.div`
 			font-weight: light;
 			color: white;
 		}
+		
+		&.visible {
+			margin-top: 12px;
+			height: auto;
+			opacity: 1;
+			visibility: visible;
+			.text-write {
+				height: 66px;
+			}
+			.text-submit {
+				height: auto;
+			}
+		}
+		
 	}
 `
 
 const SComment = styled.div`
-	width: 100%;
+	width: ${props => `calc(100% - ${props.level * 60})`};
 	padding: 16px 0;
 	padding-left: ${props => 6 + props.level * 60}px;
 	border-bottom: solid 0.8px #c3c3c3;
@@ -89,6 +110,7 @@ const SComment = styled.div`
 	}
 	.head {
 		display: flex;
+		width: 100%;
 		margin-bottom: 8px;
 	}
 	.author {
@@ -102,6 +124,13 @@ const SComment = styled.div`
 		font-weight: 300;
 		font-size: 15px;
 	}
+	.reply {
+		font-size: 8px;
+		margin-left: auto;
+		&:hover {
+			cursor: pointer;
+		}
+	}
 	.text {
 		font-size: 18px;
 		font-weight: 300;
@@ -111,25 +140,49 @@ const SComment = styled.div`
 
 const Comment = (props) => {
 	const { author, createdAt, text, level} = props
+	const [show, setShow] = useState(false)
+
+	const topLevel = !level
 	return (
 		<SComment level={level || 0}>
 			<div className="head">
 				<div className="author">{author}</div>
 				<div className="time">{createdAt}</div>
+				{topLevel && <div className="reply" onClick={() => setShow(prev => !prev)}>Reply</div>}
 			</div>
 			<div className="text">
 				{text}
 			</div>
+			{
+				topLevel &&
+				<p className={`textarea ${show ? "visible" : ""}`}>
+					<textarea className="text-write" placeholder="Write here..."></textarea>
+					<input className="text-submit" type="submit" value="Submit"></input>
+				</p>
+			}
 		</SComment>
 	)
 }
 
 class GroupDetail extends React.PureComponent {
+	state = {
+		group_detail: {},
+		owner_info: {}
+	}
+	componentDidMount() {
+		const { id } = this.props.match.params
+
+		getGroupDetail(id)
+			.then(data => {
+				this.setState(data.data)
+			})
+	}
 	render() {
 		const { id } = this.props.match.params
 		const { group, manager, comments } = this.props
-		const { title, description, category, people, limit, deadline, workload, tag } = group
-		const { name, gender, phoneNumber, email } = manager
+		const { group_detail, owner_info } = this.state
+		const { title, desc, category_name, member_cnt, capacity, deadline, workload, tag } = group_detail
+		const { first_name, last_name, gender, phone_number, email } = owner_info
 
 		let coms = []
 		comments.forEach(comment => {
@@ -156,12 +209,12 @@ class GroupDetail extends React.PureComponent {
 									vlStyle={{ fontSize: "40px", fontWeight: "400" }}
 								/>
 								<WLabel
-									title="Description" value={description} flexDirection="column"
+									title="Description" value={desc} flexDirection="column"
 									vlStyle={{ fontWeight: "300" }}
 								/>
-								<WLabel title="Category" value={category} />
-								<WLabel title="People" value={`${people} / ${limit}`} />
-								<WLabel title="Deadline" value={deadline.toLocaleString()} />
+								<WLabel title="Category" value={category_name} />
+								<WLabel title="People" value={`${member_cnt} / ${capacity}`} />
+								<WLabel title="Deadline" value={moment(deadline).format("YYYY-MM-DD")} />
 								<WLabel title="Tag" value={tag} />
 
 								<div className="footer" style={{ justifyContent: "flex-end" }}>
@@ -171,15 +224,15 @@ class GroupDetail extends React.PureComponent {
 
 							<div className="title">Group Manager</div>
 							<div className="inner-content">
-								<WLabel title="Name" value={name} />
+								<WLabel title="Name" value={`${first_name} ${last_name}`} />
 								<WLabel title="Gender" value={gender} />
-								<WLabel title="Phone Number" value={phoneNumber} />
+								<WLabel title="Phone Number" value={phone_number} />
 								<WLabel title="Email" value={email} />
 							</div>
 							<div className="title">Comments</div>
 							<div className="inner-content">
 								{coms}
-								<p className="textarea">
+								<p className="textarea visible">
 									<textarea className="text-write" placeholder="Write here..."></textarea>
 									<input className="text-submit" type="submit" value="Submit"></input>
 								</p>

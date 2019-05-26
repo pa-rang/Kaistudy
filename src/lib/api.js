@@ -7,6 +7,7 @@ export const logout = () => axios.post("/auth/logout").then(res => res.data)
 
 
 export const createGroup = (data) => axios.post("/group", data).then(res => res.data)
+export const getGroupDetail = (id) => axios.get(`/group/detail?group_id=${id}`).then(res => res.data)
 export const listGroups = () => axios.get('/group/list').then(res => res.data)
 
 signIn({ student_id: "20150682" , password: "1234qwer" })
