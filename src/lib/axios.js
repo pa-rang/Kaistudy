@@ -16,6 +16,7 @@ class Axios {
 			},
 			timeout: 30000,
 			baseURL: "http://52.78.179.78:4000",
+			withCredentials: true
 		})
 	}
 

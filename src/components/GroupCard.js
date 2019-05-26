@@ -94,7 +94,7 @@ class GroupCard extends React.Component {
 
 
 	render() {
-		const { title, category_name, deadline, capacity, count, group_id } = this.props.group
+		const { title, category_name, deadline, capacity, group_id, member_cnt } = this.props.group
 
 		return (
 			<StyledGroupCard ref={elem => this.elem = elem }>
@@ -103,7 +103,7 @@ class GroupCard extends React.Component {
 					<div className="info">
 						<p>
 							<img className="icons" width="20" src={people} />
-							{count} / {capacity} people
+							{member_cnt} / {capacity} people
 						</p>
 						<p>
 							<img className="icons" width="22" src={date} />
@@ -129,7 +129,7 @@ GroupCard.propTypes = {
 		category_name: PropTypes.string.isRequired,
 		deatline: PropTypes.number.isRequired,
 		capacity: PropTypes.number.isRequired,
-		count: PropTypes.number.isRequired,
+		member_cnt: PropTypes.number.isRequired
 	})
 }
 
@@ -139,8 +139,8 @@ GroupCard.defaultProps = {
 		category_name: "employment",
 		deatline: Date.now(),
 		capacity: 6,
-		count: 2,
-		group_id: 1
+		group_id: 1,
+		member_cnt: 1
 	}
 }
 

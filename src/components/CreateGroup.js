@@ -99,7 +99,7 @@ const StyledCats = styled.div`
 
 class CreateGroup extends React.PureComponent {
 	state = {
-		category: "etc",
+		category_name: "etc",
 		onDateFocus: false,
 		title: "",
 		desc: "",
@@ -114,19 +114,19 @@ class CreateGroup extends React.PureComponent {
 		e.preventDefault()
 
 		const {
-			category, deadline, title, desc, capacity, tag, workload
+			category_name, deadline, title, desc, capacity, tag, workload
 		} = this.state
 
-		if (!category || !deadline || !title || !capacity || !workload) {
+		if (!category_name || !deadline || !title || !capacity || !workload) {
 			Swal.fire(
 				'Feel All Required Fields',
 				'All fields are required. Sibala',
-				'error'
+				'warning'
 			)
 			return
 		}
 
-		createGroup(this.state)
+		createGroup({ ...this.state, deadline: moment(deadline).format('YYYY-MM-DD HH:mm:ss') })
 			.then(res => {
 				console.log(res)
 				return Swal.fire(
@@ -137,6 +137,13 @@ class CreateGroup extends React.PureComponent {
 			})
 			.then(res => {
 				history.push('/#main')
+			})
+			.catch(error => {
+				return Swal.fire(
+					'Request Failed',
+					'Please Try Again',
+					'error'
+				)
 			})
 
 	}
@@ -149,7 +156,7 @@ class CreateGroup extends React.PureComponent {
 
 	render() {
 		const {
-			category, deadline, title, desc, capacity, tag, workload
+			category_name, deadline, title, desc, capacity, tag, workload
 		} = this.state
 
 		return (
@@ -209,8 +216,8 @@ class CreateGroup extends React.PureComponent {
 										{categories.map(cat =>
 											<label key={cat}>
 												<input
-													type="radio" className="radio" value={cat.toLowerCase()} checked={category === cat.toLowerCase()}
-													name="category"
+													type="radio" className="radio" value={cat.toLowerCase()} checked={category_name === cat.toLowerCase()}
+													name="category_name"
 													onChange={this.handleChange}
 												/>
 												{cat}
