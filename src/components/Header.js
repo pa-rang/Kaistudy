@@ -10,17 +10,18 @@ import { Link, NavLink } from "react-router-dom"
 import Input from "components/Input"
 
 import toJS from "../hoc/toJS"
-import { signIn, signUp } from "../store/reducers/app"
+import { signIn, signUp, logout } from "../store/reducers/app"
 
 const mapDispatchToProps = {
 	signIn,
-	signUp
+	signUp,
+	logout
 }
 
 const mapStateToProps = state => {
 	return {
-		isAuthenticated: state.getIn(["auth", "isAuthenticated"]),
-		auth: state.getIn(["auth", "auth"])
+		isAuthenticated: state.getIn(["app", "isAuthenticated"]),
+		auth: state.getIn(["app", "auth"])
 	}
 }
 
@@ -309,7 +310,7 @@ class Header extends React.Component {
 							isAuthenticated ?
 							<div className="auth-buttons">
 								<button className="button button-trans button-medium" style={{ fontSize: "18px" }}
-												onClick={this.onSignInOpen}
+												onClick={this.props.logout}
 								>Logout</button>
 							</div>
 							:
