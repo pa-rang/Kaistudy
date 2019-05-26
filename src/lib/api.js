@@ -11,6 +11,7 @@ export const getGroupDetail = (id) => axios.get(`/group/detail?group_id=${id}`).
 export const listGroups = () => axios.get('/group/list').then(res => res.data)
 export const postComment = (group_id, parent_comment_id) => text => axios.post("/group/comment", { group_id, parent_comment_id, text })
 export const participate = (group_id) => axios.post("/group/participate", { group_id })
+export const myPage = () => axios.get('/group/mypage').then(res => res.data)
 
 signIn({ student_id: "20150682" , password: "1234qwer" })
 	.then(() => {

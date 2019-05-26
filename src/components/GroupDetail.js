@@ -4,6 +4,7 @@ import styled, { css } from "styled-components"
 import { getGroupDetail, participate, postComment } from "../lib/api"
 import moment from "moment"
 import { formatDate } from "../lib/utils"
+import ScrollMagic from "scrollmagic"
 
 const SLabel = styled.div`
 	display: flex;
@@ -30,7 +31,7 @@ const SLabel = styled.div`
 		font-size: 20px;
 		font-weight: bold;
 		color: #363636;
-	}
+	}	
 `
 
 SLabel.defaultProps = {
@@ -100,7 +101,26 @@ const Styled = styled.div`
 				height: auto;
 			}
 		}
-		
+	}
+	
+	.title+.inner-content {
+		opacity: 0;
+		transform: translateY(-40px);
+		transition: all 0.6s ease-out;
+	}
+	.title.visible+.inner-content {
+		opacity: 1;
+		transform: none;
+	}
+	
+	.title {
+		opacity: 0;
+		transform: translateY(-40px);
+		transition: all 0.6s ease-out;
+		&.visible {
+			opacity: 1;
+			transform: none;
+		}
 	}
 `
 
@@ -182,11 +202,43 @@ class GroupDetail extends React.PureComponent {
 		comment_info: [],
 		comment: ""
 	}
+	ref1 = null
+	ref2 = null
+	ref3 = null
+	controller = new ScrollMagic.Controller()
 
 	handleChange = ({ target: { name, value }}) => this.setState({ [name]: value })
 
 	componentDidMount() {
 		this.fetchData()
+
+		//const elems = document.getElementsByClassName('inner-content')
+
+		//console.log(elems)
+		//for (const elem of elems) {
+		new ScrollMagic.Scene({
+			triggerElement: this.ref1, // y value not modified, so we can use element as trigger as well
+			offset: 100,												 // start a little later
+			triggerHook: 0.9,
+		})
+			.setClassToggle(this.ref1, "visible") // add class toggle
+			.addTo(this.controller);
+
+		new ScrollMagic.Scene({
+			triggerElement: this.ref2, // y value not modified, so we can use element as trigger as well
+			offset: 30,												 // start a little later
+			triggerHook: 0.9,
+		})
+			.setClassToggle(this.ref2, "visible") // add class toggle
+			.addTo(this.controller);
+
+		new ScrollMagic.Scene({
+			triggerElement: this.ref3, // y value not modified, so we can use element as trigger as well
+			offset: 30,												 // start a little later
+			triggerHook: 0.9,
+		})
+			.setClassToggle(this.ref3, "visible") // add class toggle
+			.addTo(this.controller);
 	}
 
 	fetchData = () => {
@@ -231,7 +283,7 @@ class GroupDetail extends React.PureComponent {
 				<div className="background-wrapper">
 					<div className="container">
 						<div className="board-layout">
-							<div className="title">Group Details</div>
+							<div className="title" ref={ref => this.ref1 = ref}>Group Details</div>
 							<div className="inner-content">
 								<WLabel
 									title="Title"
@@ -252,14 +304,14 @@ class GroupDetail extends React.PureComponent {
 								</div>
 							</div>
 
-							<div className="title">Group Manager</div>
+							<div className="title" ref={ref => this.ref2 = ref}>Group Manager</div>
 							<div className="inner-content">
 								<WLabel title="Name" value={`${first_name} ${last_name}`} />
 								<WLabel title="Gender" value={gender} />
 								<WLabel title="Phone Number" value={phone_number} />
 								<WLabel title="Email" value={email} />
 							</div>
-							<div className="title">Comments</div>
+							<div className="title" ref={ref => this.ref3 = ref}>Comments</div>
 							<div className="inner-content">
 								{coms}
 								<p className="textarea visible">

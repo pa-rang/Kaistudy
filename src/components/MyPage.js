@@ -4,6 +4,7 @@ import styled from "styled-components"
 import GroupCard from "components/GroupCard"
 
 import { categories } from "../lib/variables"
+import { myPage } from "../lib/api"
 
 const Style = styled.div`
 	.line {
@@ -17,21 +18,31 @@ const Style = styled.div`
 	h2 {
 		font-size: 36px;
 		margin-bottom: 60px;
+		margin-top: 80px;
 	}
 	.groups {
 		padding: 40px 60px;
 		background-color: rgb(249, 249, 249);
 		border-radius: 40px;
+		min-height: 500px;
 	}
 `
 class MyPage extends React.Component {
 	state = {
-		myGroups: [],
-		pGroups: []
+		owning_groups: [],
+		participating_groups: [],
+		pending_groups: [],
+	}
+
+	componentDidMount() {
+		myPage()
+			.then(data => {
+				this.setState(data.data)
+			})
 	}
 
 	render() {
-		const { myGroups, pGroups } = this.state
+		const { owning_groups, participating_groups, pending_groups} = this.state
 
 		const a = categories.map(x => x.toLowerCase())
 			.map((c, i) =>
@@ -55,9 +66,8 @@ class MyPage extends React.Component {
 
 						<h2>Managing My Groups</h2>
 						<div className="groups">
-							{a}
 							{
-								myGroups.map((x, i) =>
+								owning_groups.map((x, i) =>
 									<GroupCard key={x.group_id} group={x} index={i}
 									/>
 								)
@@ -66,9 +76,18 @@ class MyPage extends React.Component {
 
 						<h2>Participating Groups</h2>
 						<div className="groups">
-							{a}
 							{
-								pGroups.map((x, i) =>
+								participating_groups.map((x, i) =>
+									<GroupCard key={x.group_id} group={x} index={i}
+									/>
+								)
+							}
+						</div>
+
+						<h2>Pending Requests</h2>
+						<div className="groups">
+							{
+								pending_groups.map((x, i) =>
 									<GroupCard key={x.group_id} group={x} index={i}
 									/>
 								)
