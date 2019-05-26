@@ -229,7 +229,7 @@ class Header extends React.PureComponent {
 							<button className="button button-trans button-medium" style={{ fontSize: "18px" }}
 											onClick={this.onSignInOpen}
 							>Log in</button>
-							<button className="button button-orange button-medium" style={{ fontSize: "18px" }}
+							<button className="button button-orange button-medium" style={{ fontSize: "18px"}}
 											onClick={this.onSignUpOpen}
 							>Sign up</button>
 						</div>
