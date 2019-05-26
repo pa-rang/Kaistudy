@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
 import styled, { css } from "styled-components"
-import { getGroupDetail, postComment } from "../lib/api"
+import { getGroupDetail, participate, postComment } from "../lib/api"
 import moment from "moment"
 import { formatDate } from "../lib/utils"
 
@@ -200,7 +200,7 @@ class GroupDetail extends React.PureComponent {
 	render() {
 		const { id } = this.props.match.params
 		const { group, manager, comments } = this.props
-		const { group_detail, owner_info, comment_info } = this.state
+		const { group_detail, owner_info, comment_info, user_status } = this.state
 		const { group_id, title, desc, category_name, member_cnt, capacity, deadline, workload, tag } = group_detail
 		const { first_name, last_name, gender, phone_number, email } = owner_info
 
@@ -218,6 +218,14 @@ class GroupDetail extends React.PureComponent {
 					})
 			})
 
+		let button = <button className="button button-purple button-large" onClick={() =>
+			participate(group_id)
+				.then(this.fetchData)
+		}>Join Group</button>
+		if (user_status === 1)
+			button = <button className="button button-orange button-large" disabled>Pending</button>
+		if (user_status === 2)
+			button = <button className="button button-purple button-large" disabled>Member</button>
 		return (
 			<Styled className="page-wrapper animated fadeIn">
 				<div className="background-wrapper">
@@ -240,7 +248,7 @@ class GroupDetail extends React.PureComponent {
 								<WLabel title="Tag" value={tag} />
 
 								<div className="footer" style={{ justifyContent: "flex-end" }}>
-									<button className="button button-purple button-large">Join Group</button>
+									{button}
 								</div>
 							</div>
 

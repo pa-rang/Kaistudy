@@ -89,7 +89,7 @@ class SignUpModal extends React.PureComponent {
 				<div className="modal-body">
 					<form id="signup" className="form"  onSubmit={this.signUp}>
 						<div className="input-group">
-							<input type="text" className="input-h" placeholder="First name" name="first_name" value={first_name} onChange={handleChange} />
+							<input type="text" className="input-h" placeholder="First name" name="first_name" value={first_name} onChange={handleChange} autoFocus/>
 							<input type="text" className="input-h" placeholder="Last name" name="last_name" value={last_name} onChange={handleChange} />
 						</div>
 
@@ -170,6 +170,7 @@ class SignInModal extends React.PureComponent {
 											blocks: [8]
 										}}
 										onChange={this.onSIDChange}
+										autoFocus
 						/>
 						<Input placeholder="Password" type="password" name="password" value={this.state.password} onChange={this.handleChange} />
 						{error && <div style={{ color: "red" }}>{error.message}</div>}
@@ -273,6 +274,18 @@ class Header extends React.Component {
 		})
 	}
 
+	logout = () => {
+		const { history, logout, match } = this.props
+		const { url } = match.params
+		logout()
+			.then(res => {
+					if (!url) {
+						window.location.reload()
+					} else {
+						history.push('/')
+					}
+			})
+	}
 
 	render() {
 		const { scrollY } = this.state
@@ -308,7 +321,7 @@ class Header extends React.Component {
 							isAuthenticated ?
 							<div className="auth-buttons">
 								<button className="button button-trans button-medium" style={{ fontSize: "18px" }}
-												onClick={this.props.logout}
+												onClick={this.logout}
 								>Logout</button>
 							</div>
 							:

@@ -10,6 +10,7 @@ import AppWrapper from "./App.styled"
 import "animate.css"
 import GroupDetail from "./components/GroupDetail"
 import PrivateRoute from "components/PrivateRoute"
+import MyPage from "components/MyPage"
 
 import Header from "./components/Header"
 
@@ -24,7 +25,7 @@ function App() {
 				<Route path="/" exact component={HomePage}/>
 				<PrivateRoute path="/create-group" component={CreateGroup}/>
 				<Route path="/group/:id" component={GroupDetail}/>
-				<PrivateRoute path="/my-page" component={null}/>
+				<PrivateRoute path="/my-page" component={MyPage}/>
 			</Switch>
 		</AppWrapper>
 	)

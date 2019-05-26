@@ -107,6 +107,10 @@ a, a:visited, a:hover, a:active {
 	&.button-small {
 		height: 42px;
 	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
 }
 
 .background-wrapper {
@@ -300,19 +304,20 @@ header {
 
 		.groups {
 			margin-top: 130px;
-			width: 100%;
-			display: grid;
-			grid-template-columns: 33.33% 33.33% 33.33%;
-
-			@media(max-width: 960px) {
-				grid-template-columns: 50% 50%;
-			}
-			margin-right: -24px;
-			overflow: show;
-			//flex-wrap: wrap;
-			//justify-content: space-between;
 		}
 	}
+}
+
+.groups {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 33.33% 33.33% 33.33%;
+
+	@media(max-width: 960px) {
+		grid-template-columns: 50% 50%;
+	}
+	margin-right: -24px;
+	overflow: visible;
 }
 
 .modal {

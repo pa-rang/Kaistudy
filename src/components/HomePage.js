@@ -27,7 +27,6 @@ class HomePage extends PureComponent {
 	}
 
 	render() {
-		console.log(this.state.groups)
 		const { groups } = this.state
 		return (
 			<div className="page-wrapper animated fadeIn" id="homepage">

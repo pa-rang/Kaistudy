@@ -128,7 +128,7 @@ GroupCard.propTypes = {
 	group: PropTypes.shape({
 		title: PropTypes.string.isRequired,
 		category_name: PropTypes.string.isRequired,
-		deatline: PropTypes.number.isRequired,
+		deadline: PropTypes.number.isRequired,
 		capacity: PropTypes.number.isRequired,
 		member_cnt: PropTypes.number.isRequired
 	})
@@ -138,7 +138,7 @@ GroupCard.defaultProps = {
 	group: {
 		title: "Studying MySQL Basics",
 		category_name: "employment",
-		deatline: Date.now(),
+		deadline: Date.now(),
 		capacity: 6,
 		group_id: 1,
 		member_cnt: 1
