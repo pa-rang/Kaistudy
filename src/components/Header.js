@@ -261,7 +261,7 @@ class Header extends React.Component {
 			//	popup: 'animated bounceIn'
 			//},
 			html:
-				<SignUpModal clickCancel={MySwal.clickCancel} signIn={this.props.signUp} />
+				<SignUpModal clickCancel={MySwal.clickCancel} signUp={this.props.signUp} />
 			,
 			onOpen: () => {
 				// `MySwal` is a subclass of `Swal`
