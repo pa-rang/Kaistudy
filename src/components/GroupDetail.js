@@ -347,7 +347,6 @@ class GroupDetail extends React.PureComponent {
 							<div className="title" ref={ref => this.ref2 = ref}>Group Manager</div>
 							<div className="inner-content">
 								<WLabel title="Name" value={`${first_name} ${last_name}`} />
-								<WLabel title="Gender" value={gender} />
 								<WLabel title="Phone Number" value={phone_number} />
 								<WLabel title="Email" value={email} />
 							</div>
@@ -361,7 +360,6 @@ class GroupDetail extends React.PureComponent {
 												return (
 													<div className="inner-content" key={email}>
 														<WLabel title="Name" value={`${first_name} ${last_name}`} />
-														<WLabel title="Gender" value={gender} />
 														<WLabel title="Phone Number" value={phone_number} />
 														<WLabel title="Email" value={email} />
 													</div>
@@ -381,7 +379,6 @@ class GroupDetail extends React.PureComponent {
 											return (
 												<div className="inner-content" key={email}>
 													<WLabel title="Name" value={`${first_name} ${last_name}`} />
-													<WLabel title="Gender" value={gender} />
 													<WLabel title="Phone Number" value={phone_number} button={
 														<button className="button button-purple"
 																		onClick={
