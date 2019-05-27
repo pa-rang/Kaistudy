@@ -20,7 +20,7 @@ const images = {
 }
 
 const Category = styled.div`
-	background-image: url(${props => images[props.category] || etc});
+	background-image: url(${props => images[props.category.toLowerCase()] || etc});
 	margin-top: ${props => props.marginTop};
 	width: ${props => props.width};
 	height: ${props => props.height};
