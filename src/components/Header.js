@@ -59,7 +59,7 @@ class SignUpModal extends React.PureComponent {
 				.then(clickCancel)
 				.catch(error => {
 					console.log(error)
-					this.setState({ error: new Error("All fields must be filled") })
+					this.setState({ error: new Error("Student ID must be unique") })
 				})
 		}
 	}
