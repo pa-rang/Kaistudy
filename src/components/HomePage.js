@@ -41,7 +41,7 @@ class HomePage extends PureComponent {
 								and help participants to easily find and join study groups they’re interested in.
 							</div>
 							<div className="home-buttons">
-								<AnchorLink offset="150px" href='#main'>
+								<AnchorLink offset="40px" href='#main'>
 									<button className="button button-purple button-large">
 										Join Group
 									</button>
@@ -55,7 +55,7 @@ class HomePage extends PureComponent {
 							</div>
 						</section>
 
-						<section id="main">
+						<section id="main" style={{ minHeight: "1000px" }}>
 							<div className="categories">
 								<span style={{ fontWeight: "bold" }}>CATEGORIES</span>
 								<div className="cat-list">
