@@ -235,7 +235,14 @@ class Header extends React.Component {
 			//	popup: 'animated bounceIn'
 			//},
 			html:
-				<SignInModal cancel={MySwal.clickCancel} signIn={this.props.signIn}/>,
+				<SignInModal cancel={() => {
+					MySwal.clickCancel()
+					MySwal.fire(
+						'Success',
+						'You can now fully access our service. Thanks a lot!',
+						'success'
+					)
+				}} signIn={this.props.signIn}/>,
 			onOpen: () => {
 				// `MySwal` is a subclass of `Swal`
 				//   with all the same instance & static methods
@@ -262,7 +269,14 @@ class Header extends React.Component {
 			//	popup: 'animated bounceIn'
 			//},
 			html:
-				<SignUpModal clickCancel={MySwal.clickCancel} signUp={this.props.signUp} />
+				<SignUpModal clickCancel={() => {
+					MySwal.clickCancel()
+					MySwal.fire(
+						'Successfully Registered',
+						'You can now fully access our service. Thanks a lot!',
+						'success'
+					)
+				}} signUp={this.props.signUp} />
 			,
 			onOpen: () => {
 				// `MySwal` is a subclass of `Swal`
