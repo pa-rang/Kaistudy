@@ -169,8 +169,8 @@ class CreateGroup extends React.PureComponent {
 							</div>
 							<form onSubmit={this.handleSubmit} className="inner-content">
 								<ColGroup>
-									<label><span style={{ color: "blue" }}>*</span> Title <span style={{ color: "#cccccc" }}>(withiin 30 words)</span></label>
-									<Input type="text" maxLength={30} name="title" value={title} placeholder={"Title"} onChange={this.handleChange} />
+									<label><span style={{ color: "blue" }}>*</span> Title <span style={{ color: "#cccccc" }}>(withiin 50 words)</span></label>
+									<Input type="text" maxLength={50} name="title" value={title} placeholder={"Title"} onChange={this.handleChange} />
 								</ColGroup>
 
 								<ColGroup>
