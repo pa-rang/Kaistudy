@@ -15,7 +15,7 @@ class Axios {
 				},
 			},
 			timeout: 30000,
-			baseURL: "http://52.78.179.78:4000",
+			baseURL: "https://api.kaistudy.jung-dj.dev",
 			withCredentials: true
 		})
 	}
