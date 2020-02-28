@@ -2,6 +2,8 @@
 
 Study group matching service targeting KAIST.
 
+Live service on [here](https://kaistudy.jung-dj.dev/)
+
 ## Previews
 
 ### Main Feature
