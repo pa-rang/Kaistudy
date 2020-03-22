@@ -1,6 +1,9 @@
 # Kaistudy
 
-Study group matching service targeting KAIST.
+KAI’Study is Study group matching service targeting KAIST. This is the Final Project of CS360.
+
+KAI’Study will help students to easily create and promote study groups,
+and help participants to easily find and join study groups they’re interested in.
 
 Live service on [here](https://kaistudy.jung-dj.dev/)
 
