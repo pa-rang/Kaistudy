@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "animate.css": "^3.7.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bricks.js": "^1.8.0",
     "cleave.js": "^1.4.10",
     "cross-env": "^5.2.0",
